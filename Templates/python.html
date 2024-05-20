@@ -1,0 +1,164 @@
+{% include 'navbar.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python Dersi</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+  integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        /* Ek CSS stillerini buraya ekle */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .card {
+            width: calc(33.33% - 20px);
+            margin: 10px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        .card-content {
+            padding: 20px;
+        }
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .card-text {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .price {
+            font-weight: bold;
+            color: #007bff;
+        }
+        .rating {
+            font-size: 24px;
+            color: gold;
+        }
+    </style>
+</head>
+<body>
+  
+<h2 style="text-align: center; margin-bottom: 20px;">Python Özel Kursu Eğitmenleri</h2>
+
+<div class="container">
+    <div class="card" onclick="window.location='teacher1.html';">
+    <img src="https://i.cbc.ca/1.6724242.1674694774!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_780/thirugnanasambanthar-thirukkumaran.jpg" alt="Öğretmen 1">
+    <div class="card-content">
+        <h5 class="card-title">Ahmet Yılmaz</h5>
+        <p class="card-text" style="font-size: 1rem; color: black;">ABC Python Kursunda Eğitmenlik Yapıyor</p>
+        <p class="card-text" style="font-size: 1rem; color: black;">Python Eğitmeni</p>
+        <p class="card-text" style="font-size: 1rem; color: black;">Alanı: Veri Analizi</p>
+        <p class="card-text" style="font-size: 1rem; color: black;">Ders Verdiği Diller: İngilizce, Türkçe</p>
+        <p class="card-text" style="font-size: 1rem; color: black;">Ders Fiyatı: <span class="price">800tl/saat</span></p>
+
+            <p class="rating" style="font-size: 1rem; color: black;">Değerlendirme: <span style="color: gold;">&#9733;&#9733;&#9733;&#9733;&#9733;</span></p>    </div>
+</div>
+
+<div class="card" onclick="window.location='teacher2.html';">
+    <img src="https://code.org/images/self-paced-pl-teacher-student-top.png" alt="Öğretmen 2">
+    <div class="card-content">
+        <h5 class="card-title">Mehmet Can</h5>
+        <p class="card-text" style="font-size: 1rem; color: black;">XYZ Python Akademisinde Eğitmenlik Yapıyor</p>
+        <p class="card-text" style="font-size: 1rem; color: black;">Python ve Veri Bilimi Eğitmeni</p>
+        <p class="card-text" style="font-size: 1rem; color: black;">Alanı: Makine Öğrenmesi</p>
+        <p class="card-text" style="font-size: 1rem; color: black;">Ders Verdiği Diller: İngilizce, Almanca</p>
+        <p class="card-text" style="font-size: 1rem; color: black;">Ders Fiyatı: <span class="price">900tl/saat</span></p>
+            <p class="rating style="font-size: 1rem; color: black;"" style="font-size: 1rem; color: black;">Değerlendirme: <span style="color: gold;">&#9733;&#9733;&#9733;&#9733;&#9733;</span></p>
+    </div>
+</div>
+
+<div class="card" onclick="window.location='teacher3.html';">
+    <img src="https://www.upeducators.com/wp-content/uploads/2021/07/blog-copy1-1.jpg" alt="Öğretmen 3">
+    <div class="card-content">
+        <h5 class="card-title">Ayşe Kaya</h5>
+        <p class="card-text" style="font-size: 1rem; color: black;">PythonGuru Eğitim Merkezinde Eğitmenlik Yapıyor</p>
+        <p class="card-text" style="font-size: 1rem; color: black;">Python ve Veri Analitiği Eğitmeni</p>
+        <p class="card-text" style="font-size: 1rem; color: black;">Alanı: Web Geliştirme</p>
+        <p class="card-text" style="font-size: 1rem; color: black;">Ders Verdiği Diller: Türkçe, İspanyolca</p>
+        <p class="card-text" style="font-size: 1rem; color: black;">Ders Fiyatı: <span class="price">750tl/saat</span></p>
+            <p class="rating" style="font-size: 1rem; color: black;">Değerlendirme: <span style="color: gold;">&#9733;&#9733;&#9733;&#9733;&#9733;</span></p>
+    </div>
+</div>
+
+<div class="card" onclick="window.location='teacher4.html';">
+    <img src="https://www.teacherbuilder.com/wp-content/uploads/2023/07/how-to-become-a-cs-teacher-in-texas-1.jpg" alt="Öğretmen 4">
+    <div class="card-content">
+        <h5 class="card-title">Fatma Demir</h5>
+        <p class="card-text" style="font-size: 1rem; color: black;">PythonX Kurs Merkezinde Eğitmenlik Yapıyor</p>
+        <p class="card-text" style="font-size: 1rem; color: black;">Python ve Yapay Zeka Eğitmeni</p>
+        <p class="card-text" style="font-size: 1rem; color: black;">Alanı: Veri Madenciliği</p>
+        <p class="card-text" style="font-size: 1rem; color: black;">Ders Verdiği Diller: Türkçe, İngilizce</p>
+        <p class="card-text style="font-size: 1rem; color: black;"">Ders Fiyatı: <span class="price">850tl/saat</span></p>
+            <p class="rating" style="font-size: 1rem; color: black;">Değerlendirme: <span style="color: gold;">&#9733;&#9733;&#9733;&#9733;&#9733;</span></p>
+    </div>
+</div>
+
+<div class="card" onclick="window.location='teacher5.html';">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRF4Os9K2VSps_Ch9p7FO6W9IYKjUWAhtxAda42G8wRlf-Yxil8DU2BoaReze_jHLDKLeA&usqp=CAU" alt="Öğretmen 5">
+    <div class="card-content">
+        <h5 class="card-title">Ali Korkmaz</h5>
+        <p class="card-text" style="font-size: 1rem; color: black;">PythonEdu Eğitim Akademisinde Eğitmenlik Yapıyor</p>
+        <p class="card-text" style="font-size: 1rem; color: black;">Python ve Veri Analitiği Eğitmeni</p>
+        <p class="card-text" style="font-size: 1rem; color: black;">Alanı: Derin Öğrenme</p>
+        <p class="card-text" style="font-size: 1rem; color: black;">Ders Verdiği Diller: Türkçe, Fransızca</p>
+        <p class="card-text" style="font-size: 1rem; color: black;">Ders Fiyatı: <span class="price">700tl/saat</span></p>
+            <p class="rating" style="font-size: 1rem; color: black;">Değerlendirme: <span style="color: gold;">&#9733;&#9733;&#9733;&#9733;&#9733;</span></p>
+    </div>
+</div>
+
+<div class="card" onclick="window.location='teacher6.html';">
+    <img src="https://www.eu-startups.com/wp-content/uploads/2020/06/woman-coding.jpg" alt="Öğretmen 6">
+    <div class="card-content">
+        <h5 class="card-title">Zeynep Yıldız</h5>
+        <p class="card-text" style="font-size: 1rem; color: black;">PythonLab Eğitim Merkezinde Eğitmenlik Yapıyor</p>
+        <p class="card-text" style="font-size: 1rem; color: black;">Python ve Veri Bilimi Eğitmeni</p>
+        <p class="card-text" style="font-size: 1rem; color: black;">Alanı: Doğal Dil İşleme</p>
+        <p class="card-text" style="font-size: 1rem; color: black;">Ders Verdiği Diller: Türkçe, İngilizce</p>
+        <p class="card-text" style="font-size: 1rem; color: black;">Ders Fiyatı: <span class="price">950tl/saat</span></p>
+            <p class="rating" style="font-size: 1rem; color: black;">Değerlendirme: <span style="color: gold;">&#9733;&#9733;&#9733;&#9733;&#9733;</span></p>
+    </div>
+</div>
+
+
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
+    integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
+    crossorigin="anonymous"></script>
+</body>
+</html>

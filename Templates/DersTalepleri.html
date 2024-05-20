@@ -1,0 +1,136 @@
+{% include 'navbar.html' %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .request-card {
+      margin-bottom: 20px;
+      border: 1px solid #dee2e6;
+      border-radius: 10px;
+      padding: 20px;
+      background-color: #ffffff;
+      transition: box-shadow 0.3s;
+    }
+
+    .request-card:hover {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .request-card h5 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .request-card p {
+      margin: 10px 0;
+      color: #6c757d;
+    }
+
+    .request-actions {
+      margin-top: 15px;
+    }
+
+    .request-actions a {
+      margin-right: 10px;
+    }
+
+    .divider {
+      margin: 30px 0;
+      border-bottom: 1px solid #dee2e6;
+    }
+
+    .btn-custom {
+      border-radius: 50px;
+      padding: 10px 20px;
+    }
+
+    .btn-primary-custom {
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+
+    .btn-primary-custom:hover {
+      background-color: #0056b3;
+      border-color: #004085;
+    }
+
+    .btn-danger-custom {
+      background-color: #dc3545;
+      border-color: #dc3545;
+    }
+
+    .btn-danger-custom:hover {
+      background-color: #c82333;
+      border-color: #bd2130;
+    }
+
+    .btn-warning-custom {
+      background-color: #ffc107;
+      border-color: #ffc107;
+    }
+
+    .btn-warning-custom:hover {
+      background-color: #e0a800;
+      border-color: #d39e00;
+    }
+
+    .btn-success-custom {
+      background-color: #28a745;
+      border-color: #28a745;
+    }
+
+    .btn-success-custom:hover {
+      background-color: #218838;
+      border-color: #1e7e34;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container mt-4">
+    {% if request.user.is_authenticated %}
+    <div class="text-right mb-3">
+      <a href='{% url "TalepOlustur" %}' class="btn btn-primary btn-custom btn-primary-custom">Talep Olustur</a>
+    </div>
+    {% endif %}
+
+    {% for derstalebi in derstalepleri %}
+    <div class="request-card">
+      <h5>
+        <a href="{% url 'TalepDetay' derstalebi.id %}">
+          {{derstalebi.kullanici}} -- {{derstalebi.isim}} -- {{derstalebi.ders}}
+        </a>
+      </h5>
+      <p>{{derstalebi.talep_notu}}</p>
+      <div class="request-actions">
+        {% if derstalebi.kullanici == request.user %}
+        <a href="{% url 'TalepSil' derstalebi.id %}" class="btn btn-danger btn-sm btn-custom btn-danger-custom">Talebi Sil</a>
+        <a href="{% url 'TalepDuzenle' derstalebi.id %}" class="btn btn-warning btn-sm btn-custom btn-warning-custom">Talebi Düzenle</a>
+        {% else %}
+        {% if derstalebi.talep_durumu == False %}
+        <a href="{% url 'TalepKabul' derstalebi.id %}" class="btn btn-success btn-sm btn-custom btn-success-custom">Talebi Kabul Et</a>
+        {% else %}
+        <span class="text-muted">Talep Kapandı</span>
+        {% endif %}
+        {% endif %}
+      </div>
+    </div>
+    <div class="divider"></div>
+    {% endfor %}
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

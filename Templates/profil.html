@@ -1,0 +1,103 @@
+{% include 'navbar.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profil</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+  <div class="container-xl px-4 mt-4">
+    <hr class="mt-0 mb-4">
+    <div class="row">
+        <div class="col-xl-4">
+            <!-- Profil resmi kartı-->
+            <div class="card mb-4 mb-xl-0">
+                <div class="card-header">Profil Resmi</div>
+                <div class="card-body text-center">
+                    <!-- Profil resmi görüntüsü-->
+                    <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="" style="width: 150px; height: 150px;">
+                    <!-- Profil resmi yardım bloğu-->
+                    <div class="small font-italic text-muted mb-4">JPG veya PNG formatında, 5 MB'den büyük olmayan resimler</div>
+                    <!-- Profil resmi yükleme düğmesi-->
+                    <button class="btn btn-primary" type="button">Yeni resim yükle</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-8">
+            <!-- Hesap detayları kartı-->
+            <div class="card mb-4">
+                <div class="card-header">Hesap Detayları</div>
+                <div class="card-body">
+                    <form>
+                        <!-- Form Grubu (kullanıcı adı)-->
+                        <div class="mb-3">
+                            <label class="small mb-1" for="inputUsername">Kullanıcı Adı (sitenin diğer kullanıcıları tarafından görünecek isim)</label>
+                            <input class="form-control" id="inputUsername" type="text" placeholder="Kullanıcı adınızı girin" value="kullanıcıadı">
+                        </div>
+                        <!-- Form Satırı-->
+                        <div class="row gx-3 mb-3">
+                            <!-- Form Grubu (ilk ad)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputFirstName">İsim</label>
+                                <input class="form-control" id="inputFirstName" type="text" placeholder="İsminizi girin" value="Valerie">
+                            </div>
+                            <!-- Form Grubu (soyad)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputLastName">Soyisim</label>
+                                <input class="form-control" id="inputLastName" type="text" placeholder="Soyisminizi girin" value="Luna">
+                            </div>
+                        </div>
+                        <!-- Form Satırı        -->
+                        <div class="row gx-3 mb-3">
+                            <!-- Form Grubu (şirket adı)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputOrgName">Şirket Adı</label>
+                                <input class="form-control" id="inputOrgName" type="text" placeholder="Şirketinizin adını girin" value="Start Bootstrap">
+                            </div>
+                            <!-- Form Grubu (konum)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputLocation">Konum</label>
+                                <input class="form-control" id="inputLocation" type="text" placeholder="Konumunuzu girin" value="San Francisco, CA">
+                            </div>
+                        </div>
+                        <!-- Form Grubu (e-posta adresi)-->
+                        <div class="mb-3">
+                            <label class="small mb-1" for="inputEmailAddress">E-posta Adresi</label>
+                            <input class="form-control" id="inputEmailAddress" type="email" placeholder="E-posta adresinizi girin" value="ornek@ornek.com">
+                        </div>
+                        <!-- Form Satırı-->
+                        <div class="row gx-3 mb-3">
+                            <!-- Form Grubu (telefon numarası)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputPhone">Telefon Numarası</label>
+                                <input class="form-control" id="inputPhone" type="tel" placeholder="Telefon numaranızı girin" value="555-123-4567">
+                            </div>
+                            <!-- Form Grubu (doğum günü)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputBirthday">Doğum Günü</label>
+                                <input class="form-control" id="inputBirthday" type="text" name="birthday" placeholder="Doğum gününüzü girin" value="06/10/1988">
+                            </div>
+                        </div>
+                        <!-- Değişiklikleri kaydet düğmesi-->
+                        <button class="btn btn-primary" type="button">Değişiklikleri Kaydet</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
+    integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
