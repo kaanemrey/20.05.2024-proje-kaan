@@ -58,7 +58,7 @@
             <a class="nav-link">Merhaba {{request.user}}! <i class="fa-solid fa-hand fa-shake fa-sm" style="color: #c9c9c9;"></i></a> 
           </li>
           <li class="nav-item">
-           <a class="nav-link" href="{% url 'profil'  %}">
+           <a class="nav-link" href="{% url 'profil' request.user.id  %}">
               Hesabım <i class="fa-solid fa-user fa-sm" style="color: #c2c4c7;"></i></i></i></i></i>
             </a>
           </li>

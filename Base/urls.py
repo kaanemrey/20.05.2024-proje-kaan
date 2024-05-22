@@ -17,8 +17,9 @@ urlpatterns = [
   path('python/',views. Python, name='python'),
   path('fizik/',views.Fizik, name='fizik'),
   path('gitar/',views.Gitar, name='gitar'),
-  path('profil/',views.Profil, name='profil'),
+  path('profil/<str:pk>/',views.Profil, name='profil'),
   path('mesaj/',views.Mesaj, name='mesaj'),
-  path('talebi_kabul_et/<str:pk>',views.talep_kabul, name='TalepKabul')
-
+  path('talebi_kabul_et/<str:pk>',views.talep_kabul, name='TalepKabul'),
 ]
+
+

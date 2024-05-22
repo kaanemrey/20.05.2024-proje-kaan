@@ -64,5 +64,48 @@ class Bildirim(models.Model):
   def __str__(self):
     return f"{self.icerik[0:50]}--{self.alici}"
 
+
+class Profile(models.Model):
+  secenek1 = [
+    ('erkek','Erkek'),
+    ('kadin','Kadın'),
+  ]
+  secenek2 = [
+    ('egitmen','Eğitmen'),
+    ('ogrenci','Öğrenci'),
+  ]
+  user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+  kullanici_tipi = models.CharField(max_length=50,null=False, choices=secenek2)
+  bio = models.TextField(max_length=200, null=True,blank=True, default='')
+  konum = models.CharField(max_length=50,null=True,blank=True, default='')
+  # profil_foto = models.ImageField(upload_to='profil_fotolar/',null=True,blank=True,)
+  dogum_tarihi = models.DateField(null=True, blank=True, default='')
+  tel_no = models.CharField(max_length=20, null=True, blank=True, default='')
+  cinsiyet = models.CharField(max_length=50,choices=secenek1)
+  
+  def __str__(self):
+    return str(self.user)
+  
+
+class OgrenciProfile(models.Model):
+  choices = [
+    ('ilkokul', 'İlkokul'),
+    ('ortaokul', 'Ortaokul'),
+    ('lise', 'Lise'),
+    ('universite', 'Üniversite'),
+    ('yukseklisans','Yüksek Lisans'),
+  ]
+  profile = models.OneToOneField(Profile, on_delete=models.CASCADE, null=True, blank=True)
+  seviye = models.CharField(max_length=50, choices=choices)
+  
+  def __str__(self):
+    return f'{self.profile.user.username} - Öğrenci'
+
+
+class EgitmenProfile(models.Model):
+  profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
+  
+  def __str__(self):
+    return f'{self.profile.user.username} - Eğitmen'
   
   

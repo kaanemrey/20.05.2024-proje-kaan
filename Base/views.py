@@ -1,17 +1,18 @@
 from django import forms
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
-from .formlar import RegisterForm , DersTalepleriForm
-from .models import DersTalepleri
+from .formlar import RegisterForm , DersTalepleriForm, ProfileForm, ProfileEditForm, UserEditForm
+from .models import DersTalepleri, EgitmenProfile, OgrenciProfile, Profile
 
 
 def login_page(request):
   sayfa = 'login'
   if request.method == 'POST':
-    username = request.POST.get('username').lower()
+    username = request.POST.get('username')
     password = request.POST.get('password')
 
     try:
@@ -37,13 +38,30 @@ def logout_user(request):
 def register_page(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
-        if form.is_valid():
-            form.save()
-
+        profile_form = ProfileForm(request.POST)
+        if form.is_valid() and profile_form.is_valid():
+            user = form.save()
+            profile = profile_form.save(commit=False)
+            profile.user = user
+            profile.save() 
+            if profile.kullanici_tipi == 'egitmen':
+                d = {'profile':profile}
+                egitmen = EgitmenProfile.objects.create(**d) 
+                egitmen.save()
+            elif profile.kullanici_tipi == 'ogrenci':
+                d = {'profile':profile}
+                ogrenci = OgrenciProfile.objects.create(**d)
+                ogrenci.save()          
+            login(request, user)
             return redirect('Home')  
     else:
         form = RegisterForm()
-    return render(request, 'Log-Sign.html', {'form': form})
+        profile_form = ProfileForm()
+    context = {
+       'form': form , 
+       'profile_form': profile_form, 
+       }
+    return render(request, 'Log-Sign.html', context)
 
 
 def MainPage(request):
@@ -61,13 +79,16 @@ def derstalepleri(request):
    return render(request, 'DersTalepleri.html',context)
 
 def TalepOlustur(request):
+    user = request.user
     if request.method == 'POST':
         min=request.POST.get('min_butce')
         max=request.POST.get('max_butce')
         if max >= min:
            form = DersTalepleriForm(request.POST)
            if form.is_valid():
-             form.save()
+             ders_talebi = form.save(commit=False)
+             ders_talebi.kullanici = user
+             ders_talebi.save()
              return redirect('DersTalepleri')
         else:
             messages.error(request,'Minimum bütçe aralığı maksimum bütçe aralığından büyük olamaz')
@@ -121,8 +142,24 @@ def Fizik(request):
 def Gitar(request):
     return render(request, 'gitar.html')
 
-def Profil(request):
-   return render(request, 'profil.html')
-
 def Mesaj(request):
    return render(request, 'mesaj.html')
+
+def Profil(request, pk):
+    user = User.objects.get(id=pk)
+    profile = Profile.objects.get(user=user)
+    context = {}
+    if request.method == 'POST':  
+        userform = UserEditForm(request.POST, instance=user)
+        profileform = ProfileEditForm(request.POST, instance=profile)
+
+        if userform.is_valid() and profileform.is_valid():
+            userform.save()
+            profileform.save()
+            return redirect('profil',pk=request.user.pk)
+    else:
+        profileform = ProfileEditForm(instance=profile)
+        userform = UserEditForm(instance=user)
+    
+    context = {'profileform': profileform, 'userform': userform}
+    return render(request, 'profil.html', context)

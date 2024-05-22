@@ -4,11 +4,13 @@ from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext as _
-from .models import DersTalepleri
+from .models import DersTalepleri, Profile, EgitmenProfile, OgrenciProfile
 
 
 class RegisterForm(UserCreationForm):
     username = forms.CharField(label='Kullanıcı İsmi', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    first_name = forms.CharField(label='Ad', widget=forms.TextInput(attrs={'class' : 'form-control'}))
+    last_name = forms.CharField(label='Soyad', widget=forms.TextInput(attrs={'class' : 'form-control'}))
     email = forms.EmailField(label='Email', widget=forms.EmailInput(attrs={'class': 'form-control'}))
     password1 = forms.CharField(label='Şifre', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     password2 = forms.CharField(label='Şifreyi Onaylayın', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
@@ -30,15 +32,73 @@ class RegisterForm(UserCreationForm):
     
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ['username','first_name','last_name', 'email', 'password1', 'password2']
 
+class ProfileForm(forms.ModelForm):
+    secenek1 = [
+      ('erkek','Erkek'),
+      ('kadin','Kadın'),
+    ]
+    secenek2 = [
+      ('egitmen','Eğitmen'),
+      ('ogrenci','Öğrenci'),
+    ]
+    cinsiyet = forms.ChoiceField(
+      choices=secenek1,
+      widget=forms.Select(attrs={'class': 'form-select'})
+    )
+    kullanici_tipi = forms.ChoiceField(
+      choices=secenek2,
+      widget=forms.Select(attrs={'class': 'form-select'})
+    )
+
+    class Meta:
+        model = Profile
+        fields = ['kullanici_tipi', 'cinsiyet']
 
 class DersTalepleriForm(forms.ModelForm):
     class Meta:
         model = DersTalepleri
-        fields = ['kullanici', 'isim', 'ders', 'talep_notu', 'min_butce', 'max_butce', 'ogrenci_seviyesi']
+        fields = ['isim', 'ders', 'talep_notu', 'min_butce', 'max_butce', 'ogrenci_seviyesi']
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)   
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class': 'form-input'})
+
+class EgitmenForm(forms.ModelForm):
+    class Meta:
+        model = EgitmenProfile
+        exclude = ['profile']
+
+class OgrenciForm(forms.ModelForm):
+    class Meta: 
+        model = OgrenciProfile
+        fields = ['seviye']
+
+
+class UserEditForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username','first_name','last_name','email']
+
+class ProfileEditForm(forms.ModelForm):
+    secenek = [
+      ('egitmen','Eğitmen'),
+      ('ogrenci','Öğrenci'),
+    ]
+     
+    kullanici_tipi = forms.ChoiceField(
+      choices=secenek,
+      widget=forms.Select(attrs={'class': 'form-select'})
+    )
+
+    class Meta:
+        model = Profile
+        fields = ['konum','tel_no','kullanici_tipi','dogum_tarihi','bio']
+
+    def clean_tel_no(self):
+        tel_no = self.cleaned_data.get('tel_no')
+        if not tel_no.isdigit():            
+          raise forms.ValidationError("Telefon numarası sadece sayılardan oluşmalıdır.")
+        return tel_no
