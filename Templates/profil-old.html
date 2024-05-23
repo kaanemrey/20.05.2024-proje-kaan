@@ -17,66 +17,74 @@
                 <div class="card-header">Profil Resmi</div>
                 <div class="card-body text-center">
                     <!-- Profil resmi görüntüsü-->
-                    <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="" style="width: 150px; height: 150px;">
+                    <img class="img-account-profile rounded-circle mb-2" src="{{ profile.profil_foto }}" alt="Avatar" style="width: 150px; height: 150px;">
                     <!-- Profil resmi yardım bloğu-->
                     <div class="small font-italic text-muted mb-4">JPG veya PNG formatında, 5 MB'den büyük olmayan resimler</div>
                     <!-- Profil resmi yükleme düğmesi-->
-                    <button class="btn btn-primary" type="button">Yeni resim yükle</button>
+                    <a href="{% url 'AvatarGuncelle' request.user.id %}" class="btn btn-primary">Yeni resim yükle</a>
                 </div>
             </div>
+            <a href="{% url 'VerdigimDersler' request.user.id %}">Verdiğim Dersler</a>
         </div>
         <div class="col-xl-8">
             <!-- Hesap detayları kartı-->
             <div class="card mb-4">
                 <div class="card-header">Hesap Detayları</div>
                 <div class="card-body">
-                    <form method="POST">
+                    <form method="post" action="{% url 'profil' pk=request.user.pk %}">
+                        {% csrf_token %}
                         <!-- Form Grubu (kullanıcı adı)-->
                         <div class="mb-3">
-                            <label class="small mb-1" for="inputUsername">Kullanıcı Adı (sitenin diğer kullanıcıları tarafından görünecek isim)</label>
-                            <input class="form-control" id="inputUsername" type="text" placeholder="Kullanıcı adınızı girin" value="{{user.username}}">
+                            <label class="small mb-1">Kullanıcı Adı (sitenin diğer kullanıcıları tarafından görünecek isim)</label>
+                            {{userform.username}}
                         </div>
                         <!-- Form Satırı-->
                         <div class="row gx-3 mb-3">
                             <!-- Form Grubu (ilk ad)-->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="inputFirstName">İsim</label>
-                                <input class="form-control" id="inputFirstName" type="text" placeholder="İsminizi girin" value="{{user.first_name}}">
+                                <label class="small mb-1">İsim</label>
+                                {{userform.first_name}}
                             </div>
                             <!-- Form Grubu (soyad)-->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="inputLastName">Soyisim</label>
-                                <input class="form-control" id="inputLastName" type="text" placeholder="Soyisminizi girin" value="{{user.last_name}}">
+                                <label class="small mb-1">Soyisim</label>
+                                {{userform.last_name}}
                             </div>
                         </div>
                         <!-- Form Satırı        -->
                         <div class="row gx-3 mb-3">
                             <!-- Form Grubu (konum)-->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="inputLocation">Konum</label>
-                                <input class="form-control" id="inputLocation" type="text" placeholder="Konumunuzu girin" value="{{profile.konum}}">
+                                <label class="small mb-1">Konum</label>
+                                {{profileform.konum}}
+                            </div>
+                            <!-- Form Grubu (kullanıcı tipi)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1">Kullanıcı Tipi</label>
+                                {{profileform.kullanici_tipi}}
                             </div>
                         </div>
                         <!-- Form Grubu (e-posta adresi)-->
                         <div class="mb-3">
-                            <label class="small mb-1" for="inputEmailAddress">E-posta Adresi</label>
-                            <input class="form-control" id="inputEmailAddress" type="email" placeholder="E-posta adresinizi girin" value="{{user.email}}">
+                            <label class="small mb-1">E-posta Adresi</label>
+                            {{userform.email}}
                         </div>
                         <!-- Form Satırı-->
                         <div class="row gx-3 mb-3">
                             <!-- Form Grubu (telefon numarası)-->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="inputPhone">Telefon Numarası</label>
-                                <input class="form-control" id="inputPhone" type="tel" placeholder="Telefon numaranızı girin" value="{{profile.tel_no}}">
+                                <label class="small mb-1">Telefon Numarası</label>
+                                {{profileform.tel_no}}
                             </div>
                             <!-- Form Grubu (doğum günü)-->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="inputBirthday">Doğum Günü</label>
-                                <input class="form-control" id="inputBirthday" type="text" name="birthday" placeholder="Doğum gününüzü girin" value="{{profile.dogum_tarihi}}">
+                                <label class="small mb-1">Doğum Günü</label>
+                                {{profileform.dogum_tarihi}}
                             </div>
                         </div>
                         <!-- Değişiklikleri kaydet düğmesi-->
-                        <a href="{% url 'ProfilEdit' user.id %}" class="btn btn-primary" type="button">Değişiklikleri Kaydet</a>
+                        <button class="btn btn-primary" type="submit">Değişiklikleri Kaydet</button>
+                        
                     </form>
                 </div>
             </div>

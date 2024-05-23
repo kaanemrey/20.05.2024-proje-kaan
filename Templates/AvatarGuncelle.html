@@ -1,0 +1,45 @@
+{% include 'navbar.html' %}
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Avatar Güncelle</title>
+    <style>
+      form {
+        max-width: 500px;
+        margin: 0 auto;
+      }
+      .form-group {
+        margin-bottom: 20px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      input[type="file"] {
+        display: block;
+        margin-top: 5px;
+      }
+      .submit-btn {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Avatar Güncelle</h2>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="profil_foto">Avatar:</label>
+        {{ form.profil_foto }}
+      </div>
+      <button type="submit" class="submit-btn">Güncelle</button>
+    </form>
+  </body>
+</html>

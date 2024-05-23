@@ -20,6 +20,11 @@ urlpatterns = [
   path('profil/<str:pk>/',views.Profil, name='profil'),
   path('mesaj/',views.Mesaj, name='mesaj'),
   path('talebi_kabul_et/<str:pk>',views.talep_kabul, name='TalepKabul'),
+  path('verdigim_dersler/<str:pk>/',views.verdigim_dersler,name='VerdigimDersler'),
+  path('ders_ekle/<str:pk>/',views.ders_ekle,name='DersEkle'),  
+  path('ders_sik/<str:pk>/',views.ders_sil,name='DersSil'),
+  path('ders_duzenle/<str:pk>/',views.ders_duzenle,name='DersDuzenle'),
+  path('avatar_guncelle/<str:pk>/',views.avatar_guncelle,name='AvatarGuncelle'),
 ]
 
 

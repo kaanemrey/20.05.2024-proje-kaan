@@ -1,0 +1,80 @@
+{% include 'navbar.html' %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verdiğim Dersler</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="container mt-4">
+      <h2 class="mb-4">Verdiğim Dersler</h2>
+
+      <div class="card mb-3">
+        <div class="card-header">
+          <i class="fas fa-chalkboard-teacher"></i> Dersler
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Ders Adı</th>
+                  <th>Ders Ücreti</th>
+                  <th>Ders Dili</th>
+                  <th>Ders Tipi</th>
+                  <th>İşlemler</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for ders in dersler %}
+                <tr>
+                  <td>{{ forloop.counter }}</td>
+                  <td>{{ders.ders}}</td>
+                  <td>{{ders.saatlik_ucret}}</td>
+                  <td>{{ders.ders_dili}}</td>
+                  <td>{{ders.sehir}}</td>
+                  <td>
+                    <a href="#" class="btn btn-info btn-sm">
+                      <i class="fas fa-eye"></i> Görüntüle
+                    </a>
+                    <a
+                      href="{% url 'DersDuzenle' ders.id %}"
+                      class="btn btn-warning btn-sm"
+                    >
+                      <i class="fas fa-edit"></i> Düzenle
+                    </a>
+                    <a
+                      href="{% url 'DersSil' ders.id %}"
+                      class="btn btn-danger btn-sm"
+                    >
+                      <i class="fas fa-trash"></i> Sil
+                    </a>
+                  </td>
+                </tr>
+                {% endfor %}
+                <!-- Diğer dersler burada listelenecek -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <a href="{% url 'DersEkle' request.user.id %}" class="btn btn-primary"
+        ><i class="fas fa-plus"></i> Yeni Ders Ekle</a
+      >
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

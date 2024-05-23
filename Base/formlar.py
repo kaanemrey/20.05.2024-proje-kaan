@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext as _
-from .models import DersTalepleri, Profile, EgitmenProfile, OgrenciProfile
+from .models import DersTalepleri, Profile, EgitmenProfile, OgrenciProfile, VerilenDersler
 
 
 class RegisterForm(UserCreationForm):
@@ -59,7 +59,7 @@ class ProfileForm(forms.ModelForm):
 class DersTalepleriForm(forms.ModelForm):
     class Meta:
         model = DersTalepleri
-        fields = ['isim', 'ders', 'talep_notu', 'min_butce', 'max_butce', 'ogrenci_seviyesi']
+        fields = ['isim', 'ders', 'talep_notu', 'min_butce', 'max_butce', 'ogrenci_seviyesi','konum']
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)   
@@ -95,10 +95,25 @@ class ProfileEditForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ['konum','tel_no','kullanici_tipi','dogum_tarihi','bio']
+        fields = ['tel_no','kullanici_tipi','dogum_tarihi','bio']
 
     def clean_tel_no(self):
-        tel_no = self.cleaned_data.get('tel_no')
+        cleaned_data = super().clean()
+        tel_no = cleaned_data.get('tel_no')
         if not tel_no.isdigit():            
           raise forms.ValidationError("Telefon numarası sadece sayılardan oluşmalıdır.")
         return tel_no
+
+class DersEkleForm(forms.ModelForm):
+    class Meta:
+        model = VerilenDersler
+        fields = ['ders','saatlik_ucret','ders_dili','sehir']
+        exclude = ['egitmen']
+
+
+class AvatarForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['profil_foto']
+    
+    

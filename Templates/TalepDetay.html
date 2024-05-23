@@ -1,86 +1,89 @@
 {% include 'navbar.html' %}
 <!DOCTYPE html>
 <html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ders Talebi Detayı</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+      }
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ders Talebi Detayı</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 0;
-    }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
 
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 20px;
-      background-color: #fff;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
+      h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        color: #333;
+      }
 
-    h1 {
-      font-size: 24px;
-      margin-bottom: 20px;
-      color: #333;
-    }
+      .request-details p {
+        margin-bottom: 10px;
+        font-size: 16px;
+        color: #666;
+      }
 
-    .request-details p {
-      margin-bottom: 10px;
-      font-size: 16px;
-      color: #666;
-    }
+      .actions {
+        margin-top: 20px;
+      }
 
-    .actions {
-      margin-top: 20px;
-    }
+      .edit-btn,
+      .delete-btn {
+        display: inline-block;
+        padding: 8px 16px;
+        margin-right: 10px;
+        text-decoration: none;
+        color: #fff;
+        background-color: #007bff;
+        border-radius: 4px;
+        cursor: pointer;
+      }
 
-    .edit-btn,
-    .delete-btn {
-      display: inline-block;
-      padding: 8px 16px;
-      margin-right: 10px;
-      text-decoration: none;
-      color: #fff;
-      background-color: #007bff;
-      border-radius: 4px;
-      cursor: pointer;
-    }
+      .delete-btn {
+        background-color: #dc3545;
+      }
 
-    .delete-btn {
-      background-color: #dc3545;
-    }
+      .edit-btn:hover,
+      .delete-btn:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
 
-    .edit-btn:hover,
-    .delete-btn:hover {
-      background-color: #0056b3;
-    }
-  </style>
-</head>
+  <body>
+    <div class="container">
+      <h1>Ders Talebi Detayı</h1>
 
-<body>
-
-  <div class="container">
-    <h1>Ders Talebi Detayı</h1>
-
-    <div class="request-details">
-      <p><strong>Kullanıcı:</strong> {{ ders_talebi.kullanici }}</p>
-      <p><strong>Ders:</strong> {{ ders_talebi.ders }}</p>
-      <p><strong>Talep Notu:</strong> {{ ders_talebi.talep_notu }}</p>
-      <p><strong>Talep Durumu:</strong> {% if ders_talebi.talep_durumu %}Eğitmen Bulundu{% else %}Talep Açık{% endif %}</p>
-      <p><strong>Minimum Bütçe:</strong> {{ ders_talebi.min_butce }}</p>
-      <p><strong>Maksimum Bütçe:</strong> {{ ders_talebi.max_butce }}</p>
-      <p><strong>Öğrenci Seviyesi:</strong> {{ ders_talebi.ogrenci_seviyesi }}</p>
-      <p><strong>Oluşturulma Tarihi:</strong> {{ ders_talebi.olusturulma_tarihi }}</p>
+      <div class="request-details">
+        <p><strong>Kullanıcı:</strong> {{ ders_talebi.kullanici }}</p>
+        <p><strong>Ders:</strong> {{ ders_talebi.ders }}</p>
+        <p><strong>Talep Notu:</strong> {{ ders_talebi.talep_notu }}</p>
+        <p>
+          <strong>Talep Durumu:</strong> {% if ders_talebi.talep_durumu %}
+          Eğitmen Bulundu {% else %}Talep Açık{% endif %}
+        </p>
+        <p><strong>Minimum Bütçe:</strong> {{ ders_talebi.min_butce }}</p>
+        <p><strong>Maksimum Bütçe:</strong> {{ ders_talebi.max_butce }}</p>
+        <p>
+          <strong>Öğrenci Seviyesi:</strong> {{ ders_talebi.ogrenci_seviyesi }}
+        </p>
+        <p>
+          <strong>Oluşturulma Tarihi:</strong>
+          {{ders_talebi.olusturulma_tarihi}}
+        </p>
+        <p><strong>Konum:</strong> {{ ders_talebi.konum }}</p>
+      </div>
     </div>
-
-  
-  </div>
-
-</body>
-
+  </body>
 </html>
