@@ -45,26 +45,7 @@ class DersTalepleri(models.Model):
   def __str__(self):
     return self.isim
 
-'''
-class VerilebilecekDersler(models.Model):
-  seviye = [
-    ('ilkokul', 'İlkokul'),
-    ('ortaokul', 'Ortaokul'),
-    ('lise', 'Lise'),
-    ('universite', 'Üniversite'),
-    ('yukseklisans','Yüksek Lisans'),
-  ]
-  ders = models.ForeignKey(Ders, on_delete=models.CASCADE)
-  saatlik_ucret = models.IntegerField(validators=[MinValueValidator(0)])
-  egitmen = models.ForeignKey(User, on_delete=models.CASCADE)
-  ders_dili = models.ForeignKey(Dil,on_delete=models.CASCADE)
-  sehir = models.ForeignKey(Sehir, on_delete=CASCADE, null=True, blank=True, default=None)
-  #sehir = models.CharField(max_length=20,null=True,blank=True)
-  #ders_seviyesi = models.CharField(max_length=50,choices=seviye)
 
-  def __str__(self):
-    return  f'{self.egitmen}   Dersin Dili:{self.ders_dili}   Ders:{self.ders}   Ücret:{self.saatlik_ucret}'
-'''
 class VerilenDersler(models.Model):
   seviye = [
     ('İlkokul', 'İlkokul'),
@@ -84,15 +65,6 @@ class VerilenDersler(models.Model):
     return f'{self.egitmen} Dersin Dili:{self.ders_dili} Ders:{self.ders} Ücret{self.saatlik_ucret}'
 
 
-class Mesaj(models.Model):
-  gönderen = models.ForeignKey(User, on_delete=models.CASCADE, related_name='gönderilen_mesajlar')
-  alici = models.ForeignKey(User, on_delete=models.CASCADE, related_name='alınan_mesajlar')
-  tarih = models.DateTimeField(auto_now_add=True)
-  içerik = models.TextField(max_length=200)
-
-  def __str__(self):
-    return f'{self.gönderen} --> {self.alici}: {self.içerik[0:50]}'
-  
 class Bildirim(models.Model):
   alici = models.ForeignKey(User, on_delete=CASCADE)
   icerik = models.TextField(max_length=200)
@@ -144,4 +116,19 @@ class EgitmenProfile(models.Model):
   def __str__(self):
     return f'{self.profile.user.username} - Eğitmen'
   
+
+class Sohbet(models.Model):
+  user1 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user1_sohbet')
+  user2 = models.ForeignKey(User, on_delete=models.CASCADE,related_name='user2_sohbet')
+  def __str__(self):
+        return f'{self.user1.username} - {self.user2.username} Sohbet'
   
+class Mesaj(models.Model):
+  gönderen = models.ForeignKey(User, on_delete=models.CASCADE, related_name='gönderilen_mesajlar')
+  alici = models.ForeignKey(User, on_delete=models.CASCADE, related_name='alınan_mesajlar')
+  tarih = models.DateTimeField(auto_now_add=True)
+  içerik = models.TextField(max_length=200)
+  sohbet = models.ForeignKey(Sohbet, on_delete=models.CASCADE,related_name='messages')
+
+  def __str__(self):
+    return f'{self.gönderen} --> {self.alici}: {self.içerik[0:50]}'

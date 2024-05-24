@@ -20,15 +20,17 @@ urlpatterns = [
   path('fizik/',views.Fizik, name='fizik'),
   path('gitar/',views.Gitar, name='gitar'),
   path('profil/<str:pk>/',views.Profil, name='profil'),
-  path('mesaj/',views.Mesaj, name='mesaj'),
+  path('mesaj/',views.mesaj, name='mesaj'),
   path('talebi_kabul_et/<str:pk>',views.talep_kabul, name='TalepKabul'),
   path('verdigim_dersler/<str:pk>/',views.verdigim_dersler,name='VerdigimDersler'),
   path('ders_ekle/<str:pk>/',views.ders_ekle,name='DersEkle'),  
   path('ders_sik/<str:pk>/',views.ders_sil,name='DersSil'),
   path('ders_duzenle/<str:pk>/',views.ders_duzenle,name='DersDuzenle'),
   path('avatar_guncelle/<str:pk>/',views.avatar_guncelle,name='AvatarGuncelle'),
+  path('sohbet_detay/<str:pk>',views.sohbet_detay,name='SohbetDetay'),
+ 
 ]
-
+''' path('mesaj_gonder/<str:pk>',views.mesaj_gonder,name='MesajGonder')'''
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
