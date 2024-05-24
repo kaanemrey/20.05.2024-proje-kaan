@@ -238,7 +238,16 @@ def sohbet_detay(request,pk):
    sohbetler = Sohbet.objects.filter(user1=user) | Sohbet.objects.filter(user2=user)
    secili_sohbet = Sohbet.objects.get(id=pk)
    mesajlar = Mesaj.objects.filter(sohbet=secili_sohbet)
-   context = {'sohbetler' : sohbetler, 'secili_sohbet' : secili_sohbet, 'mesajlar' : mesajlar}
+   if request.method == 'POST':
+      mesajform = MessageForm(request.POST)
+      yeni_mesaj = mesajform.save(commit=False)
+      yeni_mesaj.gönderen = user
+      yeni_mesaj.sohbet = secili_sohbet
+      yeni_mesaj.save()
+      mesajlar = Mesaj.objects.filter(sohbet=secili_sohbet)
+   else:
+      mesajform = MessageForm()
+   context = {'sohbetler' : sohbetler, 'secili_sohbet' : secili_sohbet, 'mesajlar' : mesajlar, 'mesajform' : mesajform}
    return render(request,'mesaj.html',context)
 
 

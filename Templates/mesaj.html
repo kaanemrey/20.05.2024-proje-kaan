@@ -5,50 +5,67 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chat Page</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
     <style>
-      .container {
-        display: flex;
+      body {
+        background-color: #f7f7f7;
+      }
+      .chat-container {
+        max-width: 1200px;
+        margin: 0 auto;
       }
       .sidebar {
-        flex: 1;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       }
-      .main-content {
-        flex: 2;
-      }
+      .main-content,
       .chat-form {
-        flex: 1;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       }
     </style>
   </head>
   <body>
-    <div class="container">
-      <div class="sidebar">
-        <h2>Sohbetler</h2>
-        <ul>
-          {% for sohbet in sohbetler %}
-          <li><a href="{% url 'SohbetDetay' sohbet.id %}">{{ sohbet }}</a></li>
-          {% endfor %}
-        </ul>
-      </div>
-      <div class="main-content">
-        <h2>Seçili Sohbet</h2>
-        {% if secili_sohbet %}
-        <h3>{{ secili_sohbet }}</h3>
-        <div id="chat-messages">
-          {% for mesaj in mesajlar %}
-          <p>{{ mesaj.gönderen }}: {{ mesaj.içerik }}</p>
-          {% endfor %}
+    <div class="container chat-container">
+      <div class="row">
+        <div class="col-md-4 sidebar">
+          <h2 class="mt-4">Conversations</h2>
+          <ul class="list-group">
+            {% for sohbet in sohbetler %}
+            <li class="list-group-item">
+              <a href="{% url 'SohbetDetay' sohbet.id %}">{{ sohbet }}</a>
+            </li>
+            {% endfor %}
+          </ul>
         </div>
-        {% else %}
-        <p>Lütfen bir sohbet seçin.</p>
-        {% endif %}
-      </div>
-      <div class="chat-form">
-        <h2>Mesaj Gönder</h2>
-        <form method="POST" action="">
-          {% csrf_token %} {{ form.as_p }}
-          <button type="submit">Gönder</button>
-        </form>
+        <div class="col-md-8">
+          <div class="main-content p-4">
+            <h2 class="mt-4">Selected Conversation</h2>
+            {% if secili_sohbet %}
+            <h3>{{ secili_sohbet }}</h3>
+            <div id="chat-messages">
+              {% for mesaj in mesajlar %}
+              <p>{{ mesaj.gönderen }}: {{ mesaj.içerik }}</p>
+              {% endfor %}
+            </div>
+            {% else %}
+            <p>Please select a conversation.</p>
+            {% endif %}
+          </div>
+          <div class="chat-form p-4">
+            <h2 class="mt-4">Send Message</h2>
+            <form method="POST">
+              {% csrf_token %} {{ mesajform.as_p }}
+              <button type="submit" class="btn btn-primary mt-3">Send</button>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
   </body>

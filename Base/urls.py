@@ -28,7 +28,6 @@ urlpatterns = [
   path('ders_duzenle/<str:pk>/',views.ders_duzenle,name='DersDuzenle'),
   path('avatar_guncelle/<str:pk>/',views.avatar_guncelle,name='AvatarGuncelle'),
   path('sohbet_detay/<str:pk>',views.sohbet_detay,name='SohbetDetay'),
- 
 ]
 
 
