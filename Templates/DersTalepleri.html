@@ -20,6 +20,8 @@
         padding: 20px;
         background-color: #ffffff;
         transition: box-shadow 0.3s;
+        width: 100%;
+        max-width: 100%;
       }
 
       .request-card:hover {
@@ -30,6 +32,16 @@
         margin: 0;
         font-size: 1.5rem;
         font-weight: 600;
+        word-wrap: break-word;
+        word-break: break-all;
+      }
+
+      .request-card h5 a,
+      .request-card p {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: block;
       }
 
       .request-card p {
@@ -39,6 +51,16 @@
 
       .request-actions {
         margin-top: 15px;
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .request-actions .left-actions {
+        display: flex;
+      }
+
+      .request-actions .right-actions {
+        display: flex;
       }
 
       .request-actions a {
@@ -56,8 +78,8 @@
       }
 
       .btn-primary-custom {
-        background-color: #007bff;
-        border-color: #007bff;
+        background-color: #fa0519;
+        border-color: #fa0519;
       }
 
       .btn-primary-custom:hover {
@@ -94,9 +116,23 @@
         background-color: #218838;
         border-color: #1e7e34;
       }
+
+      .user-name {
+        color: black;
+        font-style: italic;
+      }
+
+      .lesson-name {
+        color: #007bff;
+        font-style: italic;
+      }
+
+      .timestamp {
+        color: #000;
+        font-style: italic;
+      }
     </style>
   </head>
-
   <body>
     <div class="container mt-4">
       {% if request.user.is_authenticated %}
@@ -109,50 +145,83 @@
       </div>
       {% endif %} {% for derstalebi in derstalepleri %}
       <div class="request-card">
-        <h5>
-          <a href="{% url 'TalepDetay' derstalebi.id %}">
-            {{derstalebi.kullanici}} -- {{derstalebi.isim}} --
-            {{derstalebi.ders}}
-          </a>
-        </h5>
-        <p>{{derstalebi.talep_notu}}</p>
+        <div class="d-flex justify-content-between align-items-center">
+          <h5>
+            <i class="fas fa-user"></i>
+            <span class="user-name">{{ derstalebi.kullanici }}</span>
+          </h5>
+          <h5>
+            <i class="fas fa-book" style="color: #007bff"></i>
+            <span class="lesson-name">{{ derstalebi.ders }}</span>
+          </h5>
+        </div>
+        <p>{{ derstalebi.talep_notu }}</p>
         <div class="request-actions">
           {% if derstalebi.kullanici == request.user %}
-          <a
-            href="{% url 'TalepSil' derstalebi.id %}"
-            class="btn btn-danger btn-sm btn-custom btn-danger-custom"
-            >Talebi Sil</a
-          >
-          <a
-            href="{% url 'TalepDuzenle' derstalebi.id %}"
-            class="btn btn-warning btn-sm btn-custom btn-warning-custom"
-            >Talebi Düzenle</a
-          >
-          {% if derstalebi.talep_durumu == False %}
-          <a
-            href="{% url 'TalepKabul' derstalebi.id %}"
-            class="btn btn-success btn-sm btn-custom btn-success-custom"
-            >Talebi Kapat</a
-          >
-          {% else %}
-          <span class="text-muted">Talep Kapandı</span>
-          {% endif %} {% else %} {% if derstalebi.talep_durumu == False %}
-          <a
-            href="{% url 'mesaj'  %}"
-            class="btn btn-success btn-sm btn-custom btn-success-custom"
-            >İletişime Geç</a
-          >
+          <div class="right-actions">
+            <a
+              href="{% url 'TalepDuzenle' derstalebi.id %}"
+              class="btn btn-warning btn-sm btn-custom btn-warning-custom"
+              >Talebi Düzenle</a
+            >
+            <a
+              href="{% url 'TalepSil' derstalebi.id %}"
+              class="btn btn-danger btn-sm btn-custom btn-danger-custom"
+              >Talebi Sil</a
+            >
+          </div>
+          {% else %} {% if derstalebi.talep_durumu == False %}
+          <div class="right-actions">
+            <a
+              href="{% url 'TalepKabul' derstalebi.id %}"
+              class="btn btn-success btn-sm btn-custom btn-success-custom"
+              >Talebi Kabul Et</a
+            >
+          </div>
           {% else %}
           <span class="text-muted">Talep Kapandı</span>
           {% endif %} {% endif %}
+        </div>
+        <div
+          class="timestamp"
+          data-time="{{ derstalebi.olusturulma_tarihi }}"
+          id="timestamp{{ forloop.counter }}"
+        >
+          Yaklaşık XX dakika/saat/gün önce
         </div>
       </div>
       <div class="divider"></div>
       {% endfor %}
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script>
+      // Sayaçları güncellemek için bir fonksiyon
+      function updateTimeStamps() {
+        var elements = document.querySelectorAll(".timestamp");
+        elements.forEach(function (element, index) {
+          var time = new Date(Date.parse(element.dataset.time));
+          var now = new Date();
+          var diff = Math.round((now - time) / 60000); // Dakika cinsinden fark
+          var timestampElement = document.getElementById(
+            "timestamp" + (index + 1)
+          );
+          if (diff < 60) {
+            timestampElement.textContent = diff + " dakika önce";
+          } else if (diff < 1440) {
+            timestampElement.textContent = Math.floor(diff / 60) + " saat önce";
+          } else {
+            timestampElement.textContent =
+              Math.floor(diff / 1440) + " gün önce";
+          }
+        });
+      }
+
+      // Sayfa yüklendiğinde ve her 60 saniyede bir sayaçları güncelleyin
+      document.addEventListener("DOMContentLoaded", function () {
+        updateTimeStamps();
+        setInterval(updateTimeStamps, 60000);
+      });
+    </script>
   </body>
 </html>
