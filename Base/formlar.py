@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext as _
-from .models import DersTalepleri, Profile, EgitmenProfile, OgrenciProfile, VerilenDersler
+from .models import DersTalepleri, Profile, EgitmenProfile, OgrenciProfile, VerilenDersler, Mesaj
 
 
 class RegisterForm(UserCreationForm):
@@ -116,4 +116,8 @@ class AvatarForm(forms.ModelForm):
         model = Profile
         fields = ['profil_foto']
     
+class MessageForm(forms.ModelForm):
+    class Meta:
+        model = Mesaj
+        fields = ['içerik']
     

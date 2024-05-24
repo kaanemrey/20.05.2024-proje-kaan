@@ -5,8 +5,8 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
-from .formlar import RegisterForm , DersTalepleriForm, ProfileForm, ProfileEditForm, UserEditForm, DersEkleForm, AvatarForm
-from .models import DersTalepleri, EgitmenProfile, OgrenciProfile, Profile, VerilenDersler
+from .formlar import RegisterForm , DersTalepleriForm, ProfileForm, ProfileEditForm, UserEditForm, DersEkleForm, AvatarForm, MessageForm
+from .models import DersTalepleri, EgitmenProfile, OgrenciProfile, Profile, VerilenDersler, Mesaj, Sohbet
 
 
 def login_page(request):
@@ -156,8 +156,7 @@ def Gitar(request):
     return render(request, 'gitar.html')
 
 
-def Mesaj(request):
-   return render(request, 'mesaj.html')
+
 
 
 def Profil(request, pk):
@@ -228,6 +227,26 @@ def avatar_guncelle(request,pk):
    return render(request, 'AvatarGuncelle.html', {'form': form})
    
 
-'''avatar = form.save(commit=False)
-            profile.profil_foto = avatar
-            profile.save()'''
+
+
+def mesaj(request):
+   user = request.user 
+   sohbetler = Sohbet.objects.filter(user1=user) | Sohbet.objects.filter(user2=user)
+   context = {'sohbetler': sohbetler}
+   return render(request, 'mesaj.html',context)
+
+
+def sohbet_detay(request,pk):
+   user = request.user 
+   sohbetler = Sohbet.objects.filter(user1=user) | Sohbet.objects.filter(user2=user)
+   secili_sohbet = Sohbet.objects.get(id=pk)
+   mesajlar = Mesaj.objects.filter(sohbet=secili_sohbet)
+   context = {'sohbetler' : sohbetler, 'secili_sohbet' : secili_sohbet, 'mesajlar' : mesajlar}
+   return render(request,'mesaj.html',context)
+
+
+'''
+def mesaj_gonder(request,pk):
+   return render(request,'mesaj.html')
+'''
+
