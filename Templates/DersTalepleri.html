@@ -120,6 +120,7 @@
       .user-name {
         color: black;
         font-style: italic;
+        margin-left: 5px;
       }
 
       .lesson-name {
@@ -146,9 +147,9 @@
       {% endif %} {% for derstalebi in derstalepleri %}
       <div class="request-card">
         <div class="d-flex justify-content-between align-items-center">
-          <h5>
+          <h5 class="d-flex align-items-center">
             <i class="fas fa-user"></i>
-            <a style href="{% url 'TalepDetay' derstalebi.id %}" class="user-name">{{ derstalebi.kullanici }}</a>
+            <a href="{% url 'TalepDetay' derstalebi.id %}" class="user-name">{{ derstalebi.kullanici }}</a>
           </h5>
           <h5>
             <i class="fas fa-book" style="color: #007bff"></i>
