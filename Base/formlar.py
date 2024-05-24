@@ -83,19 +83,10 @@ class UserEditForm(forms.ModelForm):
         fields = ['username','first_name','last_name','email']
 
 class ProfileEditForm(forms.ModelForm):
-    secenek = [
-      ('egitmen','Eğitmen'),
-      ('ogrenci','Öğrenci'),
-    ]
      
-    kullanici_tipi = forms.ChoiceField(
-      choices=secenek,
-      widget=forms.Select(attrs={'class': 'form-select'})
-    )
-
     class Meta:
         model = Profile
-        fields = ['tel_no','kullanici_tipi','dogum_tarihi','bio']
+        fields = ['tel_no','dogum_tarihi','bio']
 
     def clean_tel_no(self):
         cleaned_data = super().clean()
