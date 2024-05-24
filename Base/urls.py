@@ -30,7 +30,7 @@ urlpatterns = [
   path('sohbet_detay/<str:pk>',views.sohbet_detay,name='SohbetDetay'),
  
 ]
-''' path('mesaj_gonder/<str:pk>',views.mesaj_gonder,name='MesajGonder')'''
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

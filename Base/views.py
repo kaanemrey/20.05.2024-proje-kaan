@@ -156,9 +156,6 @@ def Gitar(request):
     return render(request, 'gitar.html')
 
 
-
-
-
 def Profil(request, pk):
     user = User.objects.get(id=pk)
     profile = Profile.objects.get(user=user)
@@ -214,17 +211,17 @@ def ders_duzenle(request,pk):
       dersform = DersEkleForm(instance=ders_data)
    return render(request,'DersEkle.html',{'dersform':dersform})
 
-def avatar_guncelle(request,pk):
-   user = User.objects.get(id=pk)
-   profile = Profile.objects.get(user=user)
-   if request.method == 'POST':
-        form = AvatarForm(request.POST, request.FILES,instance=profile)
+def avatar_guncelle(request, pk):
+    user = User.objects.get(id=pk)
+    profile = Profile.objects.get(user=user)
+    if request.method == 'POST':
+        form = AvatarForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
-            return redirect('profil', pk=user.id)  
-   else:
+            return redirect('profil', pk=pk)  
+    else:
         form = AvatarForm(instance=profile)
-   return render(request, 'AvatarGuncelle.html', {'form': form})
+    return render(request, 'AvatarGuncelle.html', {'form': form})
    
 
 
