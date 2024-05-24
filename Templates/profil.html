@@ -1,4 +1,4 @@
-{% include 'navbar.html' %}
+{% include 'navbar.html' %} {% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -22,12 +22,20 @@
           <div class="card mb-4 mb-xl-0">
             <div class="card-header">Profil Resmi</div>
             <div class="card-body text-center">
+              {% if user.profile.profil_foto %}
               <img
                 class="img-account-profile rounded-circle mb-2"
-                src="{{ MEDIA_URL }}{{ user.profile.avatar.url }}"
+                src="{{ MEDIA_URL }}{{ profile.profil_foto.url }}"
                 alt="Avatar"
                 style="width: 150px; height: 150px"
               />
+              {% else %}
+              <img
+                src="{% static 'images/placeholder.jpg' %}"
+                alt="Placeholder"
+                style="max-width: 200px; height: auto"
+              />
+              {% endif %}
               <div class="small font-italic text-muted mb-4">
                 JPG veya PNG formatında, 5 MB'den büyük olmayan resimler
               </div>

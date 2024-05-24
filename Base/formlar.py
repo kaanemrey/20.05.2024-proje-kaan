@@ -107,7 +107,7 @@ class ProfileEditForm(forms.ModelForm):
 class DersEkleForm(forms.ModelForm):
     class Meta:
         model = VerilenDersler
-        fields = ['ders','saatlik_ucret','ders_dili','sehir']
+        fields = ['ders','saatlik_ucret','ders_dili','sehir','ders_seviyesi']
         exclude = ['egitmen']
 
 

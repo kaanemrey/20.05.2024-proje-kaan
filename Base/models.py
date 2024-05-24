@@ -67,18 +67,18 @@ class VerilebilecekDersler(models.Model):
 '''
 class VerilenDersler(models.Model):
   seviye = [
-    ('ilkokul', 'İlkokul'),
-    ('ortaokul', 'Ortaokul'),
-    ('lise', 'Lise'),
-    ('universite', 'Üniversite'),
-    ('yukseklisans','Yüksek Lisans'),
+    ('İlkokul', 'İlkokul'),
+    ('Ortaokul', 'Ortaokul'),
+    ('Lise', 'Lise'),
+    ('Universite', 'Üniversite'),
+    ('Yukseklisans','Yüksek Lisans'),
   ]
   ders = models.ForeignKey(Ders, on_delete=models.CASCADE)
   saatlik_ucret = models.IntegerField(validators=[MinValueValidator(0)])
   egitmen = models.ForeignKey(User, on_delete=models.CASCADE)
   ders_dili = models.ForeignKey(Dil, on_delete=models.CASCADE)
-  sehir = models.ForeignKey(Sehir, on_delete=models.CASCADE, null=True, blank=True)
-  # ders_seviyesi = models.CharField(max_length=50i choices=seviye)
+  sehir = models.ForeignKey(Sehir, on_delete=models.CASCADE)
+  ders_seviyesi = models.CharField(max_length=50, choices=seviye)
 
   def __str__(self):
     return f'{self.egitmen} Dersin Dili:{self.ders_dili} Ders:{self.ders} Ücret{self.saatlik_ucret}'
@@ -114,7 +114,7 @@ class Profile(models.Model):
   user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
   kullanici_tipi = models.CharField(max_length=50,null=False, choices=secenek2)
   bio = models.TextField(max_length=200, null=True,blank=True, default=None)
-  profil_foto = models.ImageField(upload_to='avatarlar/',null=True,blank=True,)
+  profil_foto = models.ImageField(upload_to='avatarlar',null=True,blank=True,)
   dogum_tarihi = models.DateField(null=True, blank=True, default=None)
   tel_no = models.CharField(max_length=20, null=True, blank=True, default=None)
   cinsiyet = models.CharField(max_length=50,choices=secenek1)

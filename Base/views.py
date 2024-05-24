@@ -204,7 +204,6 @@ def ders_sil(request,pk):
    ders.delete()
    return redirect('VerdigimDersler', pk=request.user.id)
 
-
 def ders_duzenle(request,pk):
    ders_data = VerilenDersler.objects.get(id=pk)
    if request.method == 'POST':
