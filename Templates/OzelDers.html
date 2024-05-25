@@ -1,15 +1,17 @@
 {% include 'navbar.html' %}
+
 <!DOCTYPE html>
 <html lang="en">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-  integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matematik Dersi</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
     <style>
-      
         body {
             font-family: Arial, sans-serif;
             background-color: #f8f9fa;
@@ -17,11 +19,13 @@
             padding: 20px;
             box-sizing: border-box;
         }
+
         .container {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-around;
         }
+
         .card {
             width: calc(33.33% - 20px);
             margin: 10px;
@@ -32,9 +36,11 @@
             cursor: pointer;
             transition: transform 0.3s ease;
         }
+
         .card:hover {
             transform: translateY(-5px);
         }
+
         .card img {
             width: 100%;
             height: 200px;
@@ -42,52 +48,83 @@
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
         }
+
         .card-content {
             padding: 20px;
         }
+
         .card-title {
             font-size: 1.25rem;
             font-weight: bold;
             color: #333;
             margin-bottom: 10px;
         }
+
         .card-text {
             font-size: 1rem;
             color: #666;
             margin-bottom: 10px;
         }
+
         .price {
             font-weight: bold;
             color: #007bff;
         }
+
         .rating {
             font-size: 24px;
             color: gold;
         }
+
+        /* Eğitmen bilgileri kutusu */
+        .instructor-info {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .contact-btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-btn:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
-  
+<br>
 <h2 style="text-align: center; margin-bottom: 20px;">Eğitmenlerin Verdiği Dersler</h2>
 
-
-
 <div class="container">
-  {% for ders in dersler %}
+    {% for ders in dersler %}
     <div class="card" onclick="window.location='';">
-      <a href="{% url 'HocaDetay' ders.id %}">
-     
-        <img src="{% if ders.egitmen.profile.profil_foto %}{{ MEDIA_URL }}{{ ders.egitmen.profile.profil_foto.url }}{% else %}{% endif %}" alt="Öğretmen 1">
- 
-        <div class="card-content">
-            <h5 class="card-title"  >{{ders.egitmen.first_name}} {{ders.egitmen.last_name}} </h5>
-            <p class="card-text" style="font-size: 1rem; color: black;">Ders: {{ders.ders}}</p>
-            <p class="card-text" style="font-size: 1rem; color: black;">Ders Konumu: {{ders.sehir}} </p>
-            <p class="card-text" style="font-size: 1rem; color: black;">Seviye: {{ders.ders_seviyesi}} </p>
-            <p class="card-text" style="font-size: 1rem; color: black;">Dersin Dili: {{ders.ders_dili}}</p>
-            <p class="card-text" style="font-size: 1rem; color: black;">Dersin Saatlik Fiyatı: <span class="price">{{ders.saatlik_ucret}}tl/saat</span></p>
+        <a href="{% url 'HocaDetay' ders.id %}">
+            <img src="{{ MEDIA_URL }}{{ ders.egitmen.profile.profil_foto.url }}" alt="Öğretmen 1">
+            
+        </a>
+        <!-- Eğitmen bilgileri kutusu -->
+        <div class="instructor-info">
+            <p style="font-weight: bold;">Eğitmen Bilgileri</p>
+            <p>Adı Soyadı: {{ ders.egitmen.first_name }} {{ ders.egitmen.last_name }}</p>
+            <p>Ders: {{ ders.ders }}</p>
+            <p>Seviye: {{ ders.ders_seviyesi }}</p>
+            <p>Dersin Dili: {{ ders.ders_dili }}</p>
+            <p>Dersin Konumu: {{ ders.sehir }}</p>
+            <a href="{% url 'IletisimeGec2' ders.id %}" class="contact-btn">İletişime Geç</a>
         </div>
-      </a>
     </div>
-  {% endfor %}  
+    {% endfor %}
 </div>
+
+</body>
+</html>
