@@ -31,15 +31,6 @@
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
-    .container {
-      width: 400px;
-      margin: 50px auto;
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 5px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
     h1 {
       text-align: center;
       margin-bottom: 20px;
@@ -106,8 +97,7 @@
       <input type="password" name="password" placeholder="Şifre Girin" />
       <button type="input" class="btn btn-success btn-block">Giriş Yap</button>
     </form>
-    <a href="{% url 'register' %}" style="margin-right: 15px"> Hesap Oluştur</a>
-    <a href="{% url 'Home' %}">Anasayfa</a>
+    <a href="{% url 'register' %}" class="btn btn-primary btn-block" style="margin-top: 10px"> Hesabın Yoksa Şimdi Kaydol !</a>
   </div>
 
   {% else %}
@@ -128,8 +118,6 @@
         Kayıt Ol
       </button>
     </form>
-    <a href="{% url 'login' %}" style="margin-right: 15px"> Giriş Yap</a>
-    <a href="{% url 'Home' %}">Anasayfa</a>
   </div>
 
   {% endif %}
