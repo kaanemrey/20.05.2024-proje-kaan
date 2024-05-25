@@ -77,23 +77,49 @@ class OgrenciForm(forms.ModelForm):
         fields = ['seviye']
 
 
+from django import forms
+from django.contrib.auth.models import User
+from .models import Profile
+
 class UserEditForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['username','first_name','last_name','email']
+        fields = ['username', 'first_name', 'last_name', 'email']
+        labels = {
+            'username': 'Kullanıcı İsmi',
+            'first_name': 'Ad',
+            'last_name': 'Soyad',
+            'email': 'Email'
+        }
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+        }
 
 class ProfileEditForm(forms.ModelForm):
-     
     class Meta:
         model = Profile
-        fields = ['tel_no','dogum_tarihi','bio']
+        fields = ['tel_no', 'dogum_tarihi', 'bio']
+        labels = {
+            'tel_no': 'Telefon Numarası',
+            'dogum_tarihi': 'Doğum Tarihi',
+            'bio': 'Hakkımda',
+        }
+        widgets = {
+            'tel_no': forms.TextInput(attrs={'class': 'form-control', 'type': 'number'}),
+            'dogum_tarihi': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'bio': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+        }
 
     def clean_tel_no(self):
-        cleaned_data = super().clean()
-        tel_no = cleaned_data.get('tel_no')
-        if not tel_no.isdigit():            
-          raise forms.ValidationError("Telefon numarası sadece sayılardan oluşmalıdır.")
+        tel_no = self.cleaned_data['tel_no']
+        if not tel_no.isdigit():
+            raise forms.ValidationError("Telefon numarası sadece sayılardan oluşmalıdır.")
         return tel_no
+
+
 
 class DersEkleForm(forms.ModelForm):
     class Meta:
@@ -108,6 +134,8 @@ class AvatarForm(forms.ModelForm):
         fields = ['profil_foto']
     
 class MessageForm(forms.ModelForm):
+    içerik = forms.CharField(label='Mesaj', widget=forms.TextInput(attrs={'class': 'form-control'}))
+
     class Meta:
         model = Mesaj
         fields = ['içerik']

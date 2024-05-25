@@ -71,8 +71,21 @@ def MainPage(request):
 
 
 def OzelDers(request):
-   return render(request,'OzelDers.html')
+   dersler = VerilenDersler.objects.all()
+   context = {'dersler' : dersler}
+   return render(request,'OzelDers.html',context)
 
+def hoca_detay(request,pk):
+   ders = VerilenDersler.objects.get(id=pk)
+   user = ders.egitmen
+   profile = Profile.objects.get(user=user)
+   if profile.bio:
+      has_bio = True
+   else:
+      has_bio = False
+   context = {'ders' : ders, 'user' : user, 'has_bio' : has_bio}
+   return render(request,'HocaDetay.html',context)
+   
 
 def biz_kimiz(request):
    return render(request,'hakkımızda.html')  
@@ -163,6 +176,11 @@ def Profil(request, pk):
     user = User.objects.get(id=pk)
     profile = Profile.objects.get(user=user)
     context = {}
+    if profile.profil_foto:
+        has_profile_photo = True
+    else:
+        has_profile_photo = False
+
     if request.method == 'POST':  
         userform = UserEditForm(request.POST, instance=user)
         profileform = ProfileEditForm(request.POST, instance=profile)
@@ -175,7 +193,7 @@ def Profil(request, pk):
         profileform = ProfileEditForm(instance=profile)
         userform = UserEditForm(instance=user)
     
-    context = {'profileform': profileform, 'userform': userform, 'profile': profile}
+    context = {'profileform': profileform, 'userform': userform, 'profile': profile,'has_profile_photo': has_profile_photo}
     return render(request, 'profil.html', context)
 
 
@@ -213,6 +231,7 @@ def ders_duzenle(request,pk):
    else:
       dersform = DersEkleForm(instance=ders_data)
    return render(request,'DersEkle.html',{'dersform':dersform})
+
 
 def avatar_guncelle(request, pk):
     user = User.objects.get(id=pk)
@@ -254,7 +273,7 @@ def sohbet_detay(request,pk):
    return render(request,'mesaj.html',context)
 
 
-def iletisime_gec(request, pk):
+def iletisime_gec1(request, pk):
     ders_talebi = DersTalepleri.objects.get(id=pk)
     alici = ders_talebi.kullanici
     user = request.user
@@ -285,8 +304,34 @@ def iletisime_gec(request, pk):
     return render(request, 'mesaj.html', context)
     
 
-
-
-
+def iletisime_gec2(request, pk):
+    ders = VerilenDersler.objects.get(id=pk)
+    alici = ders.egitmen
+    user = request.user
+    sohbetler = Sohbet.objects.filter(Q(user1=user) | Q(user2=user))
+    try:
+        secili_sohbet = Sohbet.objects.get(
+        Q(user1=user, user2=alici) | Q(user1=alici, user2=user)
+    )
+    except Sohbet.DoesNotExist:
+        secili_sohbet = Sohbet.objects.create(user1=user, user2=alici)
+    mesajlar = Mesaj.objects.filter(sohbet=secili_sohbet)
+    if request.method == 'POST':
+        mesajform = MessageForm(request.POST)
+        if mesajform.is_valid():
+            yeni_mesaj = mesajform.save(commit=False)
+            yeni_mesaj.gönderen = user
+            yeni_mesaj.sohbet = secili_sohbet
+            yeni_mesaj.save()
+            return redirect('IletisimeGec2',pk=ders.id)
+    else:
+        mesajform = MessageForm()
+    context = {
+        'sohbetler': sohbetler,
+        'secili_sohbet': secili_sohbet,
+        'mesajlar': mesajlar,
+        'mesajform': mesajform
+    }
+    return render(request, 'mesaj.html', context)
 
 

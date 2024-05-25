@@ -1,0 +1,65 @@
+{% include 'navbar.html' %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hoca ve Ders Bilgileri</title>
+    <style>
+      /* Buton stilini ayarla */
+      .button {
+        background-color: #4caf50; /* Yeşil */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 8px;
+      }
+
+      /* Hoca ve ders bilgileri bölümü stilini ayarla */
+      .container {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+      }
+
+      /* Buton stilini ayarla */
+      .btn-success-custom {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Hoca ve ders bilgileri -->
+    <div class="container">
+      <h2>Hoca ve Ders Bilgileri</h2>
+      <p><strong>Hoca:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+      <p><strong>Ders:</strong> {{ ders.ders }}</p>
+      <p><strong>Ders Konumu:</strong> {{ ders.sehir }}</p>
+      <p><strong>Seviye:</strong> {{ ders.ders_seviyesi }}</p>
+      <p><strong>Dersin Dili:</strong> {{ ders.ders_dili }}</p>
+      {% if has_bio %}
+      <p><strong>Kullanıcı Bio:</strong> {{ user.profile.bio }}</p>
+      {% endif %}
+      <p><strong>Dersin Saatlik Fiyatı:</strong> {{ ders.saatlik_ucret }}tl/saat</p>
+      <div class="right-actions">
+        <a href="{% url 'IletisimeGec2' ders.id %}" class="btn btn-success btn-sm btn-success-custom">Eğitmen İle İletişime Geç</a>
+      </div>
+    </div>
+  </body>
+</html>
+
