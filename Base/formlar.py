@@ -108,6 +108,7 @@ class AvatarForm(forms.ModelForm):
         fields = ['profil_foto']
     
 class MessageForm(forms.ModelForm):
+    
     class Meta:
         model = Mesaj
         fields = ['içerik']

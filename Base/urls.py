@@ -28,7 +28,9 @@ urlpatterns = [
   path('ders_duzenle/<str:pk>/',views.ders_duzenle,name='DersDuzenle'),
   path('avatar_guncelle/<str:pk>/',views.avatar_guncelle,name='AvatarGuncelle'),
   path('sohbet_detay/<str:pk>',views.sohbet_detay,name='SohbetDetay'),
-  path('iletisime_gec/<str:pk>',views.iletisime_gec,name='IletisimeGec')
+  path('iletisime_gec1/<str:pk>',views.iletisime_gec1,name='IletisimeGec1'),
+  path('hoca_detay/<str:pk>',views.hoca_detay,name='HocaDetay'),
+  path('iletisime_gec2/<str:pk>',views.iletisime_gec2,name='IletisimeGec2'),
 ]
 
 
