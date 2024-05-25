@@ -202,11 +202,18 @@
           </div>
           {% else %} {% if derstalebi.talep_durumu == False %}
           <div class="right-actions">
+            {% if request.user.is_authenticated %}
             <a
               href="{% url 'IletisimeGec1' derstalebi.id %}"
               class="btn btn-success btn-sm btn-custom btn-success-custom"
               >Öğrenci İle İletişime Geç</a
             >
+            {% else %}
+            <a
+              href="{% url 'register' %}"
+              class="btn btn-success btn-sm btn-custom btn-success-custom"
+              >Öğrenci İle İletişime Geç</a
+            >{% endif %}
           </div>
           {% else %}
           <span class="text-muted">Talep Kapandı</span>
