@@ -69,6 +69,7 @@
       <h1>Ders Talebi Detayı</h1>
 
       <div class="request-details">
+        <p><strong>Başlık:</strong> {{ ders_talebi.isim }}</p>
         <p><strong>Kullanıcı:</strong> {{ ders_talebi.kullanici }}</p>
         <p><strong>Ders:</strong> {{ ders_talebi.ders }}</p>
         <p><strong>Talep Notu:</strong> {{ ders_talebi.talep_notu }}</p>
@@ -76,8 +77,8 @@
           <strong>Talep Durumu:</strong> {% if ders_talebi.talep_durumu %}
           Eğitmen Bulundu {% else %}Talep Açık{% endif %}
         </p>
-        <p><strong>Minimum Bütçe:</strong> {{ ders_talebi.min_butce }}</p>
-        <p><strong>Maksimum Bütçe:</strong> {{ ders_talebi.max_butce }}</p>
+        <p><strong>Minimum Bütçe:</strong> {{ ders_talebi.min_butce }} TL</p>
+        <p><strong>Maksimum Bütçe:</strong> {{ ders_talebi.max_butce }} TL</p>
         <p>
           <strong>Öğrenci Seviyesi:</strong> {{ ders_talebi.ogrenci_seviyesi }}
         </p>

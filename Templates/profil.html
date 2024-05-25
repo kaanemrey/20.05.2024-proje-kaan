@@ -25,12 +25,21 @@
           <div class="card mb-4 mb-xl-0">
             <div class="card-header">Profil Fotoğraf</div>
             <div class="card-body text-center">
+              {% if profile.pofil_foto %}
               <img
                 class="img-account-profile rounded-circle mb-2"
                 src="{{ MEDIA_URL }}{{ profile.profil_foto.url }}"
                 alt="Avatar"
                 style="width: 150px; height: 150px"
               />
+              {% else %}
+              <img
+                class="img-account-profile rounded-circle mb-2"
+                src="https://i0.wp.com/sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png?ssl=1"
+                alt="Avatar"
+                style="width: 150px; height: 150px"
+              />
+              {% endif %}
               <div class="small font-italic text-muted mb-4">
                 JPG veya PNG formatında, 5 MB'den büyük olmayan resimler
               </div>

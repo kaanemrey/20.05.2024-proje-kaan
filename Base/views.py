@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
+from django.db.models import Q
 from .formlar import RegisterForm , DersTalepleriForm, ProfileForm, ProfileEditForm, UserEditForm, DersEkleForm, AvatarForm, MessageForm
 from .models import DersTalepleri, EgitmenProfile, OgrenciProfile, Profile, VerilenDersler, Mesaj, Sohbet
 
@@ -88,6 +89,8 @@ def TalepOlustur(request):
     if request.method == 'POST':
         min=request.POST.get('min_butce')
         max=request.POST.get('max_butce')
+        min = int(min)
+        max = int(max)
         if max >= min:
            form = DersTalepleriForm(request.POST)
            if form.is_valid():
@@ -251,8 +254,39 @@ def sohbet_detay(request,pk):
    return render(request,'mesaj.html',context)
 
 
-'''
-def mesaj_gonder(request,pk):
-   return render(request,'mesaj.html')
-'''
+def iletisime_gec(request, pk):
+    ders_talebi = DersTalepleri.objects.get(id=pk)
+    alici = ders_talebi.kullanici
+    user = request.user
+    sohbetler = Sohbet.objects.filter(Q(user1=user) | Q(user2=user))
+    try:
+        secili_sohbet = Sohbet.objects.get(
+        Q(user1=user, user2=alici) | Q(user1=alici, user2=user)
+    )
+    except Sohbet.DoesNotExist:
+        secili_sohbet = Sohbet.objects.create(user1=user, user2=alici)
+    mesajlar = Mesaj.objects.filter(sohbet=secili_sohbet)
+    if request.method == 'POST':
+        mesajform = MessageForm(request.POST)
+        if mesajform.is_valid():
+            yeni_mesaj = mesajform.save(commit=False)
+            yeni_mesaj.gönderen = user
+            yeni_mesaj.sohbet = secili_sohbet
+            yeni_mesaj.save()
+            return redirect('IletisimeGec',pk=ders_talebi.id)
+    else:
+        mesajform = MessageForm()
+    context = {
+        'sohbetler': sohbetler,
+        'secili_sohbet': secili_sohbet,
+        'mesajlar': mesajlar,
+        'mesajform': mesajform
+    }
+    return render(request, 'mesaj.html', context)
+    
+
+
+
+
+
 
