@@ -76,13 +76,9 @@
   {% for ders in dersler %}
     <div class="card" onclick="window.location='';">
       <a href="{% url 'HocaDetay' ders.id %}">
-        {% if has_profile_photo %}
-        <img src="{{ MEDIA_URL }}{{ ders.egitmen.profile.profil_foto.url }}" alt="Öğretmen 1">
-        {% else %}
-        <img class="img-account-profile rounded-circle mb-2"
-        src="https://i0.wp.com/sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png?ssl=1"
-        alt="Avatar" style="width: 150px; height: 150px"/>
-        {% endif %}
+     
+        <img src="{% if ders.egitmen.profile.profil_foto %}{{ MEDIA_URL }}{{ ders.egitmen.profile.profil_foto.url }}{% else %}{% endif %}" alt="Öğretmen 1">
+ 
         <div class="card-content">
             <h5 class="card-title"  >{{ders.egitmen.first_name}} {{ders.egitmen.last_name}} </h5>
             <p class="card-text" style="font-size: 1rem; color: black;">Ders: {{ders.ders}}</p>
