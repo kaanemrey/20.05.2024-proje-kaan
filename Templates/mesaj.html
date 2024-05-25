@@ -17,11 +17,13 @@
     />
     <style>
       body {
-        background-color: #f7f7f7;
+        background-color: #ececec;
       }
       .chat-container {
         max-width: 1200px;
         margin: 0 auto;
+        display: flex;
+        flex-direction: row;
       }
       .sidebar,
       .main-content,
@@ -35,11 +37,39 @@
         cursor: pointer;
       }
       .chat-list-item:hover {
-        background-color: #f1f1f1;
+        background-color: #d6d1d1;
         transition: background-color 0.3s;
       }
       .card {
         margin-bottom: 20px;
+      }
+      .balloon {
+        display: inline-block;
+        background-color: #aed8ff;
+        padding: 10px;
+        border-radius: 15px;
+        margin-bottom: 10px;
+      }
+      /* Gönder butonunun boyutunu küçültmek için ekledik */
+      .btn-send {
+        padding: 0.25rem 0.5rem; /* Butonun iç içe geçişini artırmak için padding değerlerini düşürdük */
+        font-size: 0.75rem; /* Butonun metin boyutunu küçülttük */
+        line-height: 1.25; /* Metin yüksekliğini ayarladık */
+        width: 4rem; /* Butonun genişliğini belirledik */
+        height: 2rem; /* Butonun yüksekliğini belirledik */
+      }
+      /* Yeni stiller */
+      .chat-form {
+        display: flex;
+        align-items: center; /* Elemanları dikeyde hizalamak için */
+      }
+      .form-group {
+        flex-grow: 1; /* Elemanın genişlemesini sağlamak için */
+        margin-right: 10px; /* Butondan önceki boşluğu artırmak için */
+      }
+      .btn-send {
+        flex-shrink: 0; /* Butonun boyutunun sabit kalmasını sağlamak için */
+        height: 100%; /* Butonun yüksekliğini ayarlamak için */
       }
     </style>
   </head>
@@ -55,18 +85,19 @@
               class="list-group-item list-group-item-action chat-list-item"
             >
               <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">{{ sohbet }}</h5>
-                <small class="text-muted">3 days ago</small>
+                <h5 class="mb-1">
+                  <i class="fas fa-user mr-2"></i>{{ sohbet }}
+                </h5>
+                <!-- İnsan ikonunu ekledik -->
               </div>
               <p class="mb-1">Son mesaj önizlemesi buraya gelecek...</p>
-              <small class="text-muted">Son mesaj zamanı.</small>
             </a>
             {% endfor %}
           </div>
         </div>
         <div class="col-md-8">
           <div class="main-content p-4">
-            <h2>Seçili Sohbet</h2>
+            <h2>Seçili Sohbet ve Mesaj Gönder</h2>
             {% if secili_sohbet %}
             <div class="card">
               <div class="card-header">
@@ -76,11 +107,28 @@
                 {% for mesaj in mesajlar %}
                 <div class="media mb-3">
                   <div class="media-body">
-                    <h5 class="mt-0">{{ mesaj.gönderen }}</h5>
-                    {{ mesaj.içerik }}
+                    <div class="balloon">
+                      <h5 class="mt-0">{{ mesaj.gönderen }}</h5>
+                      {{ mesaj.içerik }}
+                      <small class="text-muted">{{ mesaj.tarih }}</small>
+                      <!-- Mesajın atılma tarihi -->
+                    </div>
                   </div>
                 </div>
                 {% endfor %}
+              </div>
+              <div class="chat-form">
+                <form method="POST" class="d-flex">
+                  {% csrf_token %}
+                  <div class="form-group flex-grow-1">
+                    {{ mesajform.içerik }}
+                  </div>
+                  <!-- Gönder butonunun classını değiştirdik -->
+                  <button type="submit" class="btn btn-primary btn-send">
+                    <i class="fas fa-paper-plane"></i> Gönder
+                  </button>
+                  <!-- Buton eklendi -->
+                </form>
               </div>
             </div>
             {% else %}
@@ -90,22 +138,6 @@
               </div>
             </div>
             {% endif %}
-          </div>
-          <div class="chat-form p-4">
-            <div class="card">
-              <div class="card-header">
-                <h2>Mesaj Gönder</h2>
-              </div>
-              <div class="card-body">
-                <form method="POST">
-                  {% csrf_token %}
-                  <div class="form-group">
-                    {{ mesajform.içerik.label_tag }} {{ mesajform.içerik }}
-                  </div>
-                  <button type="submit" class="btn btn-primary">Gönder</button>
-                </form>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -122,7 +154,8 @@
     crossorigin="anonymous"
   ></script>
   <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
+    src="
+https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
     integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
     crossorigin="anonymous"
   ></script>
