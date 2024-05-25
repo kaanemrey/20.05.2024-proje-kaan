@@ -22,41 +22,44 @@
       }
 
       /* Hoca ve ders bilgileri bölümü stilini ayarla */
-      #content {
-        display: none; /* Sayfa yüklendiğinde gizli */
-        margin: 20px;
+      .container {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        background-color: #f9f9f9;
       }
 
-      /* Gösterilen bilgilerin stilini ayarla */
-      #content:target {
-        display: block; /* Sayfa URL'sinde #content olduğunda görünür */
+      /* Buton stilini ayarla */
+      .btn-success-custom {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
       }
     </style>
   </head>
   <body>
-    <!-- Buton -->
-
     <!-- Hoca ve ders bilgileri -->
-    <div>
+    <div class="container">
       <h2>Hoca ve Ders Bilgileri</h2>
-      <p><strong>Hoca:</strong>{{user.first_name}} {{user.last_name}}</p>
-      <p><strong>Ders:</strong> {{ders.ders}}</p>
-      <p><strong>Ders Konumu:</strong> {{ders.sehir}}</p>
-      <p><strong>Seviye:</strong> {{ders.ders_seviyesi}}</p>
-      <p><strong>Dersin Dili:</strong> {{ders.ders_dili}}</p>
+      <p><strong>Hoca:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+      <p><strong>Ders:</strong> {{ ders.ders }}</p>
+      <p><strong>Ders Konumu:</strong> {{ ders.sehir }}</p>
+      <p><strong>Seviye:</strong> {{ ders.ders_seviyesi }}</p>
+      <p><strong>Dersin Dili:</strong> {{ ders.ders_dili }}</p>
       {% if has_bio %}
-      <p><strong>Kullanıcı Bio:</strong> {{user.profile.bio}}</p>
+      <p><strong>Kullanıcı Bio:</strong> {{ user.profile.bio }}</p>
       {% endif %}
-      <p>
-        <strong>Dersin Saatlik Fiyatı:</strong> {{ders.saatlik_ucret}}tl/saat
-      </p>
+      <p><strong>Dersin Saatlik Fiyatı:</strong> {{ ders.saatlik_ucret }}tl/saat</p>
       <div class="right-actions">
-        <a
-          href="{% url 'IletisimeGec2' ders.id %}"
-          class="btn btn-success btn-sm btn-custom btn-success-custom"
-          >Eğitmen İle İletişime Geç</a
-        >
+        <a href="{% url 'IletisimeGec2' ders.id %}" class="btn btn-success btn-sm btn-success-custom">Eğitmen İle İletişime Geç</a>
       </div>
     </div>
   </body>
 </html>
+
