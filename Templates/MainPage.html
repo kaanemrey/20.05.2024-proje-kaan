@@ -35,8 +35,16 @@
     <div class="row justify-content-center">
       <div class="col-md-6">
         <div class="input-group search-container">
-          <input type="text" class="form-control" placeholder="Ne dersi almak istersiniz? " aria-label="Arama"
-            aria-describedby="basic-addon2">
+          <form method="GET" action="{% url 'OzelDers' %}">
+            <input
+              type="text"
+              name="q"
+              class="form-control"
+              placeholder="Ne dersi almak istersiniz? "
+              aria-label="Arama"
+              aria-describedby="basic-addon2"
+            />
+          </form>
           <div class="input-group-append">
             <button class="btn btn-outline-secondary" type="button">
               <i class="fas fa-search fa-sm"></i> Ara

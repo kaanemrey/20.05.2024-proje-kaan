@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.db.models import Q
 from .formlar import RegisterForm , DersTalepleriForm, ProfileForm, ProfileEditForm, UserEditForm, DersEkleForm, AvatarForm, MessageForm
-from .models import DersTalepleri, EgitmenProfile, OgrenciProfile, Profile, VerilenDersler, Mesaj, Sohbet
+from .models import DersTalepleri, EgitmenProfile, OgrenciProfile, Profile, VerilenDersler, Mesaj, Sohbet, Ders
 
 
 def login_page(request):
@@ -71,8 +71,20 @@ def MainPage(request):
 
 
 def OzelDers(request):
-   dersler = VerilenDersler.objects.all()
-   context = {'dersler' : dersler}
+   q = request.GET.get('q') if request.GET.get('q') != None else ''
+   verilen_dersler = VerilenDersler.objects.filter(
+      Q(ders__ders__icontains=q) |
+      Q(egitmen__first_name__icontains=q) |
+      Q(egitmen__last_name__icontains=q) |
+      Q(egitmen__username__icontains=q) |
+      Q(egitmen__profile__cinsiyet__icontains=q) |
+      Q(ders_dili__dil__icontains=q) |
+      Q(sehir__sehir__icontains=q) |
+      Q(saatlik_ucret__icontains=q) |
+      Q(ders_seviyesi=q)
+       )
+   dersler = Ders.objects.all()
+   context = {'verilen_dersler' : verilen_dersler, 'dersler' : dersler}
    return render(request,'OzelDers.html',context)
 
 def hoca_detay(request,pk):
@@ -245,8 +257,6 @@ def avatar_guncelle(request, pk):
         form = AvatarForm(instance=profile)
     return render(request, 'AvatarGuncelle.html', {'form': form})
    
-
-
 
 def mesaj(request):
    user = request.user 

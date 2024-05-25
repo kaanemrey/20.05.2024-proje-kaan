@@ -7,6 +7,8 @@ from django.utils.translation import gettext as _
 from .models import DersTalepleri, Profile, EgitmenProfile, OgrenciProfile, VerilenDersler, Mesaj
 
 
+
+
 class RegisterForm(UserCreationForm):
     username = forms.CharField(label='Kullanıcı İsmi', widget=forms.TextInput(attrs={'class': 'form-control'}))
     first_name = forms.CharField(label='Ad', widget=forms.TextInput(attrs={'class' : 'form-control'}))
@@ -76,10 +78,6 @@ class OgrenciForm(forms.ModelForm):
         model = OgrenciProfile
         fields = ['seviye']
 
-
-from django import forms
-from django.contrib.auth.models import User
-from .models import Profile
 
 class UserEditForm(forms.ModelForm):
     class Meta:
