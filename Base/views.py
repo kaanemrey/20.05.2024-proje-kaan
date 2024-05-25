@@ -19,7 +19,7 @@ def login_page(request):
     try:
       user = User.objects.get(username=username)
     except:
-      messages.error(request, 'Böyle bi kullanıcı ismi bulunmuyor')
+      messages.error(request, 'Böyle bir kullanıcı ismi bulunmuyor')
 
     user = authenticate(request, username=username, password=password)
 
