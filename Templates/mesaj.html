@@ -18,24 +18,24 @@
         max-width: 1200px;
         margin: 0 auto;
       }
-      .sidebar {
-        background-color: #fff;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      }
+      .sidebar,
       .main-content,
       .chat-form {
         background-color: #fff;
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+      }
+      .list-group-item {
+        cursor: pointer;
       }
     </style>
   </head>
   <body>
     <div class="container chat-container">
       <div class="row">
-        <div class="col-md-4 sidebar">
-          <h2 class="mt-4">Conversations</h2>
+        <div class="col-md-4 sidebar p-4">
+          <h2>Sohbetler</h2>
           <ul class="list-group">
             {% for sohbet in sohbetler %}
             <li class="list-group-item">
@@ -46,7 +46,7 @@
         </div>
         <div class="col-md-8">
           <div class="main-content p-4">
-            <h2 class="mt-4">Selected Conversation</h2>
+            <h2>Seçili Sohbet</h2>
             {% if secili_sohbet %}
             <h3>{{ secili_sohbet }}</h3>
             <div id="chat-messages">
@@ -59,10 +59,11 @@
             {% endif %}
           </div>
           <div class="chat-form p-4">
-            <h2 class="mt-4">Send Message</h2>
+            <h2>Send Message</h2>
             <form method="POST">
-              {% csrf_token %} {{ mesajform.as_p }}
-              <button type="submit" class="btn btn-primary mt-3">Send</button>
+              {% csrf_token %}
+              <div class="form-group">{{ mesajform.as_p }}</div>
+              <button type="submit" class="btn btn-primary">Gönder</button>
             </form>
           </div>
         </div>
