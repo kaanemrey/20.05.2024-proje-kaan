@@ -141,6 +141,23 @@
   </head>
   <body>
     <div class="container mt-4">
+      <div>
+        <form method="GET" action="{% url 'DersTalepleri' %}">
+          <input
+            type="text"
+            name="q"
+            class="search-input"
+            placeholder="Ne dersi almak istersiniz?"
+            aria-label="Arama"
+            aria-describedby="basic-addon2"
+          />
+          <button type="submit" class="search-button">Ara</button>
+        <h3>Ders Seçin</h3>
+        <a href="{% url 'DersTalepleri' %}">Hepsi</a>
+        {% for ders in dersler %}
+        <a href="{% url 'DersTalepleri' %}?q={{ders.ders}}">{{ders.ders}}</a>
+        {% endfor %}
+      </div>
       {% if request.user.is_authenticated %}
       <div class="text-right mb-3">
         <a
