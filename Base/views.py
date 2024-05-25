@@ -156,9 +156,6 @@ def Gitar(request):
     return render(request, 'gitar.html')
 
 
-
-
-
 def Profil(request, pk):
     user = User.objects.get(id=pk)
     profile = Profile.objects.get(user=user)
@@ -214,17 +211,17 @@ def ders_duzenle(request,pk):
       dersform = DersEkleForm(instance=ders_data)
    return render(request,'DersEkle.html',{'dersform':dersform})
 
-def avatar_guncelle(request,pk):
-   user = User.objects.get(id=pk)
-   profile = Profile.objects.get(user=user)
-   if request.method == 'POST':
-        form = AvatarForm(request.POST, request.FILES,instance=profile)
+def avatar_guncelle(request, pk):
+    user = User.objects.get(id=pk)
+    profile = Profile.objects.get(user=user)
+    if request.method == 'POST':
+        form = AvatarForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
-            return redirect('profil', pk=user.id)  
-   else:
+            return redirect('profil', pk=pk)  
+    else:
         form = AvatarForm(instance=profile)
-   return render(request, 'AvatarGuncelle.html', {'form': form})
+    return render(request, 'AvatarGuncelle.html', {'form': form})
    
 
 
@@ -241,7 +238,16 @@ def sohbet_detay(request,pk):
    sohbetler = Sohbet.objects.filter(user1=user) | Sohbet.objects.filter(user2=user)
    secili_sohbet = Sohbet.objects.get(id=pk)
    mesajlar = Mesaj.objects.filter(sohbet=secili_sohbet)
-   context = {'sohbetler' : sohbetler, 'secili_sohbet' : secili_sohbet, 'mesajlar' : mesajlar}
+   if request.method == 'POST':
+      mesajform = MessageForm(request.POST)
+      yeni_mesaj = mesajform.save(commit=False)
+      yeni_mesaj.gönderen = user
+      yeni_mesaj.sohbet = secili_sohbet
+      yeni_mesaj.save()
+      mesajlar = Mesaj.objects.filter(sohbet=secili_sohbet)
+   else:
+      mesajform = MessageForm()
+   context = {'sohbetler' : sohbetler, 'secili_sohbet' : secili_sohbet, 'mesajlar' : mesajlar, 'mesajform' : mesajform}
    return render(request,'mesaj.html',context)
 
 
