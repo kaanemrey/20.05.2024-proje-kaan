@@ -55,11 +55,11 @@
               {% endfor %}
             </div>
             {% else %}
-            <p>Please select a conversation.</p>
+            <p>Lütfen Bir Sohbet Seçin</p>
             {% endif %}
           </div>
           <div class="chat-form p-4">
-            <h2>Send Message</h2>
+            <h2>Mesaj Gönder</h2>
             <form method="POST">
               {% csrf_token %}
               <div class="form-group">{{ mesajform.as_p }}</div>

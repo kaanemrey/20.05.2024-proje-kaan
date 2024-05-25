@@ -163,6 +163,11 @@ def Profil(request, pk):
     user = User.objects.get(id=pk)
     profile = Profile.objects.get(user=user)
     context = {}
+    if profile.profil_foto:
+        has_profile_photo = True
+    else:
+        has_profile_photo = False
+
     if request.method == 'POST':  
         userform = UserEditForm(request.POST, instance=user)
         profileform = ProfileEditForm(request.POST, instance=profile)
@@ -175,7 +180,7 @@ def Profil(request, pk):
         profileform = ProfileEditForm(instance=profile)
         userform = UserEditForm(instance=user)
     
-    context = {'profileform': profileform, 'userform': userform, 'profile': profile}
+    context = {'profileform': profileform, 'userform': userform, 'profile': profile,'has_profile_photo': has_profile_photo}
     return render(request, 'profil.html', context)
 
 
@@ -213,6 +218,7 @@ def ders_duzenle(request,pk):
    else:
       dersform = DersEkleForm(instance=ders_data)
    return render(request,'DersEkle.html',{'dersform':dersform})
+
 
 def avatar_guncelle(request, pk):
     user = User.objects.get(id=pk)
