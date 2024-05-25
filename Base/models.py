@@ -125,7 +125,7 @@ class Sohbet(models.Model):
   
 class Mesaj(models.Model):
   gönderen = models.ForeignKey(User, on_delete=models.CASCADE, related_name='gönderilen_mesajlar')
-  # alici = models.ForeignKey(User, on_delete=models.CASCADE, related_name='alınan_mesajlar')
+  alici = models.ForeignKey(User, on_delete=models.CASCADE, null=True,blank=True,default=None,related_name='alınan_mesajlar')
   tarih = models.DateTimeField(auto_now_add=True)
   içerik = models.TextField(max_length=200)
   sohbet = models.ForeignKey(Sohbet, on_delete=models.CASCADE,related_name='messages')
