@@ -72,7 +72,12 @@ def MainPage(request):
 
 def OzelDers(request):
    dersler = VerilenDersler.objects.all()
-   context = {'dersler' : dersler}
+   for ders in dersler:
+      if ders.profile.profil_foto:
+         has_profile_photo = True
+      else:
+         has_profile_photo = False
+   context = {'dersler' : dersler, 'has_profile_photo' : has_profile_photo}
    return render(request,'OzelDers.html',context)
 
 def hoca_detay(request,pk):
