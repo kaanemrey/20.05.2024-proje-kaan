@@ -61,7 +61,7 @@ class ProfileForm(forms.ModelForm):
 class DersTalepleriForm(forms.ModelForm):
     class Meta:
         model = DersTalepleri
-        fields = ['isim', 'ders', 'talep_notu', 'min_butce', 'max_butce', 'ogrenci_seviyesi','konum']
+        fields = ['isim', 'ders', 'talep_notu', 'min_butce', 'max_butce', 'ogrenci_seviyesi','konum','dil']
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)   

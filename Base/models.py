@@ -41,6 +41,7 @@ class DersTalepleri(models.Model):
   ogrenci_seviyesi = models.CharField(max_length=50,choices=seviye)
   olusturulma_tarihi = models.DateTimeField(auto_now_add=True)
   konum = models.ForeignKey(Sehir, on_delete=models.CASCADE, null=True, blank=True, default=None)
+  dil = models.ForeignKey(Dil,on_delete=models.CASCADE,null=True,blank=True,default=None)
   
   def __str__(self):
     return self.isim

@@ -104,8 +104,22 @@ def biz_kimiz(request):
 
 
 def derstalepleri(request):
-   derstalepleri = DersTalepleri.objects.all()
-   context = {'derstalepleri': derstalepleri}
+   q = request.GET.get('q') if request.GET.get('q') != None else ''
+   dersler = Ders.objects.all()
+   derstalepleri = DersTalepleri.objects.filter(
+      Q(ders__ders__icontains=q) |
+      Q(kullanici__username__icontains=q) |
+      Q(kullanici__last_name__icontains=q) |
+      Q(kullanici__first_name__icontains=q) |
+      Q(kullanici__profile__cinsiyet__icontains=q) |
+      Q(konum__sehir__icontains=q) |
+      Q(isim__icontains=q) |
+      Q(max_butce__icontains=q) |
+      Q(min_butce__icontains=q) |
+      Q(olusturulma_tarihi__icontains=q) |
+      Q(dil__dil__icontains=q)
+   )
+   context = {'derstalepleri': derstalepleri, 'dersler':dersler}
    return render(request, 'DersTalepleri.html',context)
 
 
@@ -169,19 +183,78 @@ def talep_kabul(request,pk):
 
 
 def Matematik(request):
-    return render(request, 'matematik.html')
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
+
+    verilen_dersler = VerilenDersler.objects.filter(
+      Q(ders__ders__icontains=q) |
+      Q(egitmen__first_name__icontains=q) |
+      Q(egitmen__last_name__icontains=q) |
+      Q(egitmen__username__icontains=q) |
+      Q(egitmen__profile__cinsiyet__icontains=q) |
+      Q(ders_dili__dil__icontains=q) |
+      Q(sehir__sehir__icontains=q) |
+      Q(saatlik_ucret__icontains=q) |
+      Q(ders_seviyesi=q)
+       )
+    dersler = Ders.objects.all()
+    context = {'verilen_dersler' : verilen_dersler, 'dersler' : dersler}
+    return render(request,'OzelDers.html',context)
+   
 
 
 def Python(request):
-    return render(request, 'python.html')
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
 
+    verilen_dersler = VerilenDersler.objects.filter(
+      Q(ders__ders__icontains=q) |
+      Q(egitmen__first_name__icontains=q) |
+      Q(egitmen__last_name__icontains=q) |
+      Q(egitmen__username__icontains=q) |
+      Q(egitmen__profile__cinsiyet__icontains=q) |
+      Q(ders_dili__dil__icontains=q) |
+      Q(sehir__sehir__icontains=q) |
+      Q(saatlik_ucret__icontains=q) |
+      Q(ders_seviyesi=q)
+       )
+    dersler = Ders.objects.all()
+    context = {'verilen_dersler' : verilen_dersler, 'dersler' : dersler}
+    return render(request,'OzelDers.html',context)
 
 def Fizik(request):
-    return render(request, 'fizik.html')
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
 
+    verilen_dersler = VerilenDersler.objects.filter(
+      Q(ders__ders__icontains=q) |
+      Q(egitmen__first_name__icontains=q) |
+      Q(egitmen__last_name__icontains=q) |
+      Q(egitmen__username__icontains=q) |
+      Q(egitmen__profile__cinsiyet__icontains=q) |
+      Q(ders_dili__dil__icontains=q) |
+      Q(sehir__sehir__icontains=q) |
+      Q(saatlik_ucret__icontains=q) |
+      Q(ders_seviyesi=q)
+       )
+    dersler = Ders.objects.all()
+    context = {'verilen_dersler' : verilen_dersler, 'dersler' : dersler}
+    return render(request,'OzelDers.html',context)
 
 def Gitar(request):
-    return render(request, 'gitar.html')
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
+
+    verilen_dersler = VerilenDersler.objects.filter(
+      Q(ders__ders__icontains=q) |
+      Q(egitmen__first_name__icontains=q) |
+      Q(egitmen__last_name__icontains=q) |
+      Q(egitmen__username__icontains=q) |
+      Q(egitmen__profile__cinsiyet__icontains=q) |
+      Q(ders_dili__dil__icontains=q) |
+      Q(sehir__sehir__icontains=q) |
+      Q(saatlik_ucret__icontains=q) |
+      Q(ders_seviyesi=q)
+       )
+    dersler = Ders.objects.all()
+    context = {'verilen_dersler' : verilen_dersler, 'dersler' : dersler}
+    return render(request,'OzelDers.html',context)
 
 
 def Profil(request, pk):
