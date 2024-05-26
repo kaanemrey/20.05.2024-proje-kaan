@@ -15,19 +15,15 @@ def login_page(request):
   if request.method == 'POST':
     username = request.POST.get('username')
     password = request.POST.get('password')
-
-    try:
-      user = User.objects.get(username=username)
-    except:
-      messages.error(request, 'Böyle bir kullanıcı ismi bulunmuyor')
-
+    
     user = authenticate(request, username=username, password=password)
 
     if user is not None:
-      login(request,user)
-      return redirect('Home')
+        login(request,user)
+        return redirect('Home')
     else:
-      messages.error(request, 'Yanlış Şifre')
+        messages.error(request, 'Kullanıcı Bilgileri Yanlış')
+
   context = {'sayfa': sayfa}
   return render(request, 'Log-Sign.html',context)
 
@@ -417,4 +413,15 @@ def iletisime_gec2(request, pk):
     }
     return render(request, 'mesaj.html', context)
 
+def ders_taleplerim(request,pk):
+   user = User.objects.get(id=pk)
+   ders_taleplerim = DersTalepleri.objects.filter(kullanici=user)
+   context = {'user': user , 'ders_taleplerim':ders_taleplerim}
+   return render(request,'DersTaleplerim.html',context)
+
+
+def sohbeti_sil(request,pk):
+   sohbet = Sohbet.objects.get(id=pk)
+   sohbet.delete()
+   return redirect('mesaj')
 
