@@ -8,7 +8,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.db.models import Q
 from .formlar import RegisterForm , DersTalepleriForm, ProfileForm, ProfileEditForm, UserEditForm, DersEkleForm, AvatarForm, MessageForm
 from .models import DersTalepleri, EgitmenProfile, OgrenciProfile, Profile, VerilenDersler, Mesaj, Sohbet, Ders
-
+from django.core.paginator import Paginator
 
 def login_page(request):
   sayfa = 'login'
@@ -115,7 +115,10 @@ def derstalepleri(request):
       Q(olusturulma_tarihi__icontains=q) |
       Q(dil__dil__icontains=q)
    )
-   context = {'derstalepleri': derstalepleri, 'dersler':dersler}
+   paginator = Paginator(derstalepleri,5)  
+   page_number = request.GET.get('page')  
+   page_obj = paginator.get_page(page_number)
+   context = {'derstalepleri': derstalepleri, 'dersler':dersler,'page_obj':page_obj}
    return render(request, 'DersTalepleri.html',context)
 
 
