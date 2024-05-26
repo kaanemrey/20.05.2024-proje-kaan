@@ -6,26 +6,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Anasayfa</title>
-  <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 
   <style>
-    /* Örnek olarak arama çubuğunu navbarın altına eklemek için bir stil tanımlıyoruz */
     .search-container {
-      margin-top: 30px;
-    }
-
-    /* Arama butonu stil tanımı */
-    .search-container button {
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-    }
-
-    /* Arama kutusu stil tanımı */
-    .search-container input[type="text"] {
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
+      margin-top: 40px;
     }
   </style>
 </head>
@@ -33,26 +19,67 @@
 <body>
   <div class="container">
     <div class="row justify-content-center">
-      <div class="col-md-6">
+      <div class="col-md-7">
         <div class="input-group search-container">
-          <form method="GET" action="{% url 'OzelDers' %}">
+          <form method="GET" action="{% url 'OzelDers' %}" class="w-100 d-flex">
             <input
               type="text"
               name="q"
-              class="form-control"
+              class="form-control search-input"
               placeholder="Ne dersi almak istersiniz? "
               aria-label="Arama"
               aria-describedby="basic-addon2"
             />
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary search-button" type="submit">
+                <i class="fas fa-search fa-sm"></i> Ara
+              </button>
+            </div>
           </form>
-          <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button">
-              <i class="fas fa-search fa-sm"></i> Ara
-            </button>
-          </div>
         </div>
       </div>
     </div>
+  </div>
+  
+  <style>
+    .search-container {
+      position: relative;
+      width: 100%;
+    }
+  
+    .search-input {
+      border-radius: 25px 0 0 25px;
+      padding: 10px 20px;
+      border: 2px solid #ddd;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      flex: 1;
+    }
+  
+    .search-input:focus {
+      border-color: #007bff;
+      box-shadow: 0 2px 5px rgba(0, 123, 255, 0.25);
+      outline: none;
+    }
+  
+    .search-button {
+      border-radius: 0 25px 25px 0;
+      border: 2px solid #ddd;
+      background-color: #007bff;
+      color: #fff;
+      transition: all 0.3s ease;
+    }
+  
+    .search-button:hover {
+      background-color: #0056b3;
+      border-color: #0056b3;
+    }
+  
+    .search-button i {
+      margin-right: 5px;
+    }
+  </style>
+  
   </div>
 
   <div class="container mt-4">
@@ -147,7 +174,7 @@
                   class="card-img-top" alt="...">
               </a>
               <div class="card-body">
-                <a class="nav-link text-white" href="{% url 'matematik' %}?q=Matematik">Matematik</a>
+                <a class="nav-link text-white" href="{% url 'OzelDers' %}?q=Matematik">Matematik</a>
                 </a>
               </div>
             </div>
@@ -161,7 +188,7 @@
                   class="card-img-top" alt="Python">
               </a>
               <div class="card-body">
-                <a class="nav-link text-white text-center" href="{% url 'python' %}?q=Python">Python</a>
+                <a class="nav-link text-white text-center" href="{% url 'OzelDers' %}?q=Python">Python</a>
                 </a>
               </div>
             </div>
@@ -175,7 +202,7 @@
                   class="card-img-top" alt="Fizik">
               </a>
               <div class="card-body">
-                <a class="nav-link text-white text-center" href="{% url 'fizik' %}?q=Fizik">Fizik</a>
+                <a class="nav-link text-white text-center" href="{% url 'OzelDers' %}?q=Fizik">Fizik</a>
                 </a>
               </div>
             </div>
@@ -189,7 +216,7 @@
                   class="card-img-top" alt="Gitar">
               </a>
               <div class="card-body">
-                <a class="nav-link text-white text-center" href="{% url 'gitar' %}?q=Gitar">Gitar</a>
+                <a class="nav-link text-white text-center" href="{% url 'OzelDers' %}?q=Gitar">Gitar</a>
                 </a>
               </div>
             </div>
@@ -240,15 +267,7 @@
           </div>
         </div>
 
-
-
-
-
       </div>
-
-
-
-
 
       <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -263,3 +282,4 @@
 </body>
 
 </html>
+

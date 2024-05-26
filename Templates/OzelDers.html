@@ -6,14 +6,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Matematik Dersi</title>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 
     <style>
       body {
@@ -31,45 +25,91 @@
       }
 
       .search-form {
-        margin-bottom: 20px;
+        width: 70%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
-
+      
       .search-input {
-        width: 100%;
+        flex: 1;
         padding: 10px;
-        border-radius: 5px;
-        border: 1px solid #ced4da; /* Gri kenarlık */
-        box-sizing: border-box;
+        border: 1px solid #ced4da;
+        border-radius: 5px 0 0 5px;
       }
-
+      
       .search-button {
-        width: 100%;
-        padding: 10px;
-        border-radius: 5px;
-        background-color: #007bff; /* Mavi renk */
-        color: #fff; /* Beyaz renk */
-        border: none;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
+        background-color: #ced4da;
+        color: #000;
+        border: 1px solid #ced4da;
+        padding: 10px 20px;
+        border-radius: 0 5px 5px 0;
       }
+      
 
-      .search-button:hover {
-        background-color: #0056b3; /* Koyu mavi renk */
-      }
+     
+      
 
       .filter-links {
-        margin-bottom: 10px;
+        margin-bottom: 20px;
+        text-align: center;
+        position: relative;
+        background-color: #e9ecef; /* Açık gri arka plan */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       }
 
-      .filter-links a {
-        display: inline-block;
-        margin-right: 10px;
-        text-decoration: none;
+      .filter-links h3 {
+        margin-bottom: 15px;
         color: #007bff; /* Mavi renk */
       }
 
+      .filter-links .filter-container {
+        display: flex;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        padding: 10px;
+        margin: 0 -10px; /* Sağdan ve soldan 10 piksel boşluk bırak */
+    }
+    
+
+    .filter-links a {
+      flex: 0 0 auto;
+      margin-right: 10px;
+      padding: 8px 15px;
+      text-decoration: none;
+      color: #fff; /* Beyaz renk */
+      background-color: #495057; /* Daha koyu gri */
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+  }
+  
+
       .filter-links a:hover {
-        color: #0056b3; /* Koyu mavi renk */
+            background-color: #495057; /* Koyu mavi renk */
+        }
+
+      .nav-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: #495057;
+        color: white;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        z-index: 1;
+        border-radius: 50%;
+      }
+
+      .nav-arrow.left {
+        left: -15px; /* Sol oku biraz dışarı taşı */
+      }
+
+      .nav-arrow.right {
+        right: -18px; /* Sağ oku biraz dışarı taşı */
       }
 
       .container {
@@ -127,40 +167,66 @@
       .contact-btn:hover {
         background-color: #0056b3;
       }
+      .filter-container .filter-link {
+        background-color: #6c757d;
+        color: #fff;
+        border: 1px solid #6c757d;
+    }
+    
+    .filter-container .filter-link:hover {
+        background-color: #5a6268;
+        border-color: #5a6268;
+    }
+    
     </style>
   </head>
   <body>
-    <h2>Eğitmenlerin Verdiği Dersler</h2>
-    <div class="search-form">
-      <form method="GET" action="{% url 'OzelDers' %}">
-        <input
-          type="text"
-          name="q"
-          class="search-input"
-          placeholder="Ne dersi almak istersiniz?"
-          aria-label="Arama"
-          aria-describedby="basic-addon2"
-        />
-        <button type="submit" class="search-button">Ara</button>
-      </form>
-    </div>
+    <br>
+    <h2 style="color: black; text-align: center;">Eğitmenlerin Verdiği Dersler</h2>
+
+    <form method="GET" action="{% url 'OzelDers' %}" class="search-form">
+      <input
+        type="text"
+        name="q"
+        class="search-input"
+        placeholder="Ne dersi almak istersiniz?"
+        aria-label="Arama"
+        aria-describedby="basic-addon2"
+      />
+      <button type="submit" class="search-button">Ara</button>
+    </form>
+    
+
+    
+    
+    
     <div class="filter-links">
-      <h3>Ders Seçin</h3>
-      <a href="{% url 'OzelDers' %}" class="filter-link">Hepsi</a>
-      {% for ders in dersler %}
-      <a href="{% url 'OzelDers' %}?q={{ders.ders}}" class="filter-link"
-        >{{ders.ders}}</a
-      >
-      {% endfor %}
+      <button class="nav-arrow left" onclick="scrollLeft()">&#10094;</button>
+      <div class="filter-container">
+        <a href="{% url 'OzelDers' %}" class="filter-link">Hepsi</a>
+        {% for ders in dersler %}
+        <a href="{% url 'OzelDers' %}?q={{ders.ders}}" class="filter-link"
+          >{{ders.ders}}</a
+        >
+        {% endfor %}
+      </div>
+      <button class="nav-arrow right" onclick="scrollRight()">&#10095;</button>
     </div>
+
     <div class="container">
       {% for ders in verilen_dersler %}
       <div class="card" onclick="window.location='';">
         <a href="{% url 'HocaDetay' ders.id %}">
+          {% if ders.egitmen.profile.profil_foto %}
           <img
-            src="{% if ders.egitmen.profile.profil_foto %}{{ MEDIA_URL }}{{ ders.egitmen.profile.profil_foto.url }}{% else %}/static/default_profile_photo.jpg{% endif %}"
+            src="{{ MEDIA_URL }}{{ ders.egitmen.profile.profil_foto.url }}"
             alt="Öğretmen 1"
           />
+          {% else %}
+          <img
+          src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBhARBxAREBUVFRUTFRASDRIPERUTFRUWFyAWExMYHSggJBolHRMYITEhJSkuMjAuFx83ODMtOigtLisBCgoKDQ0NDg8QDisZFRkrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrK//AABEIAOEA4QMBIgACEQEDEQH/xAAbAAEBAQEBAQEBAAAAAAAAAAAABgQFAgMBB//EADMQAQABAgEJBgUEAwAAAAAAAAABAgQDBREUITFBUVOREiJhcaHRFSMygZITUsHwQrHh/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/xAAWEQEBAQAAAAAAAAAAAAAAAAAAEQH/2gAMAwEAAhEDEQA/AP60AqAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM93d4VrR8yde6mNsg0PyZiNqfuMp3GNPdnsRwp2/edrHVVNU96ZnznOQqsiYnZrfqSiZjY1W+ULnBn6u1HCrX67VhVGMllfYV1GaO7V+2Z/1LWgAAAAAAAAAAAAAAAAAAAAAA+F7c02uBNU652RHGU3i4leNiTViTnmWvK+POLdzEbKdX33/wB8GFUAAAAftNU0VRNM5pjXEwosm3cXWD3vqjb7pxpsMebe6pndsnykFKAigAAAAAAAAAAAAAAAAABG0I2gk66prrmZ3zM9Xl6qpmiqYndMx0eVQAAAAABVW9Xbt6JnfTTPWH0fO3p7FvRE7qaY9H0RQAAAAAAAAAAAAAAAAAAAE9lfB/SvJmNlWuP5/vixKW+tYusDNvjXE+PsnMSirDrmK4zTG2FR5AAAAaLHB0i6pp3Z88+UPhETM6lBkyz0XCz1/VO3wjgDaAigAAAAAAAAAAAAAAAAAAADNeWWHd097VO6qNv38GkBOXGT7nAnXT2o406/TayK55roor+uInziJWkSbRgWVxj/AEUzm/dOqFHTh4dE92mI8qYh7KkY7HJ+Ha6571XHNqjyhsBFAAAAAAAAAAAAAAAAAAAYco38W0dnD11ekefsDTj3GFb058aqI8N8+UOdjZZpifk0Z/Gqc3pDlYmJXiV58SZmeMvCxHRnLFxuinpPufF7nhR+M+7nAOj8XueFH4z7nxe54UfjPu5wDo/F7nhR+M+58XueFH4z7ucA6Pxe54UfjPufGLnhR0n3c4B18LLWv51H3pn+JdG3usG5j5U/bZV0S79pqmmrPTOaeMapIVWjmZNyl+tMUXG3dVx8J8XTRQAAAAAAAAAAAAAHwvbiLa3mrfsiPFNVVVV1TNU55nXMuhlzF7VxFMf4x6z/AMzOauJoAAAAAAAAAAAD9UOTLrSbfv8A1U6p8eEp1syTi/pXscKu712eoYogEUAAAAAAAAAAABNZRmar7Ez8c3TV/DOpqrS3rqmaqKZmd+Z+aFa8unotSJoUuhWvLp6GhWvLp6FImhS6Fa8unoaFa8unoUiaFLoVry6ehoVry6ehSJoUuhWvLp6GhWvLp6FImhS6Fa8unoaFa8unoUiaFLoVry6ehoVry6ehSJp6wp7OLTMbpiekqPQrXl09DQrXl09CkaAEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB//9k="
+          />
+          {% endif %}
         </a>
         <!-- Eğitmen bilgileri kutusu -->
         <div class="instructor-info">
@@ -172,17 +238,41 @@
           <p>Seviye: {{ ders.ders_seviyesi }}</p>
           <p>Dersin Dili: {{ ders.ders_dili }}</p>
           <p>Dersin Konumu: {{ ders.sehir }}</p>
-          {% if request.user.is_authenticated %} {%if not request.user == ders.egitmen %}
+          {% if request.user.is_authenticated %}
+          {% if request.user != ders.egitmen %}
           <a href="{% url 'IletisimeGec2' ders.id %}" class="contact-btn"
             >İletişime Geç</a
-          >{% endif %} {% else %}
+          >
+          {% endif %}
+          {% else %}
           <a href="{% url 'register' %}" class="contact-btn"
-            >Eğitmen İle İletişime Geç</a
+            >İletişime Geç</a
           >
           {% endif %}
         </div>
       </div>
       {% endfor %}
     </div>
+
+    <script>
+      const filterContainer = document.querySelector('.filter-container');
+
+      function scrollLeft() {
+        filterContainer.scrollBy({ left: -200, behavior: 'smooth' });
+      }
+
+      function scrollRight() {
+        filterContainer.scrollBy({ left: 200, behavior: 'smooth' });
+      }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
+    integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
+    crossorigin="anonymous"></script>
   </body>
 </html>
