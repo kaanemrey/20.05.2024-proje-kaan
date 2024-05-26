@@ -5,7 +5,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ders Talebi Detayı</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -20,7 +27,7 @@
             padding: 20px;
             background-color: #fff;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgb(203, 226, 205);
         }
 
         h1 {
@@ -33,7 +40,7 @@
         .request-details p {
             margin-bottom: 10px;
             font-size: 18px;
-            color: #131212;
+            color: #036800;
         }
 
         .actions {
@@ -63,66 +70,94 @@
         .delete-btn:hover {
             background-color: #0056b3;
         }
+
+        .btn-custom {
+            margin-right: 10px;
+        }
+
+        .btn-warning-custom {
+            background-color: #ffc107;
+            border-color: #ffc107;
+        }
+
+        .btn-danger-custom {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+
+        .btn-success-custom {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+        .right-actions {
+            margin-top: 20px;
+            text-align: right;
+        }
+
+        .text-muted {
+            color: #6c757d;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Ders Talebi Detayı</h1>
+        <h1>Ders Talebinin Detayları</h1>
 
         <div class="request-details">
-            <p><strong>Başlık:</strong> {{ ders_talebi.isim }}</p>
-            <p><strong>Kullanıcı:</strong> {{ ders_talebi.kullanici }}</p>
-            <p><strong>Ders:</strong> {{ ders_talebi.ders }}</p>
-            <p><strong>Talep Notu:</strong> {{ ders_talebi.talep_notu }}</p>
-            <p>
+            <p><i class="fas fa-book"></i> <strong>Başlık:</strong> {{ ders_talebi.isim }}</p>
+            <p><i class="fas fa-user"></i> <strong>Kullanıcı:</strong> {{ ders_talebi.kullanici }}</p>
+            <p><i class="fas fa-chalkboard"></i> <strong>Ders:</strong> {{ ders_talebi.ders }}</p>
+            <p><i class="fas fa-sticky-note"></i> <strong>Talep Notu:</strong> {{ ders_talebi.talep_notu }}</p>
+            <p><i class="fas fa-info-circle"></i> 
                 <strong>Talep Durumu:</strong> {% if ders_talebi.talep_durumu %}
                 Eğitmen Bulundu {% else %}Talep Açık{% endif %}
             </p>
-            <p><strong>Minimum Bütçe:</strong> {{ ders_talebi.min_butce }} TL</p>
-            <p><strong>Maksimum Bütçe:</strong> {{ ders_talebi.max_butce }} TL</p>
-            <p><strong>Öğrenci Seviyesi:</strong> {{ ders_talebi.ogrenci_seviyesi }}</p>
-            <p><strong>Oluşturulma Tarihi:</strong> {{ders_talebi.olusturulma_tarihi}}</p>
-            <p><strong>Konum:</strong> {{ ders_talebi.konum }}</p>
-            <p><strong>Dersin Dili:</strong> {{ ders_talebi.dil }}</p>
+            <p><i class="fas fa-coins"></i> <strong>Bütçe Aralığı:</strong> {{ ders_talebi.min_butce }} TL - {{ ders_talebi.max_butce }} TL</p>
+            <p><i class="fas fa-level-up-alt"></i> <strong>Öğrenci Seviyesi:</strong> {{ ders_talebi.ogrenci_seviyesi }}</p>
+            <p><i class="fas fa-calendar-alt"></i> <strong>Oluşturulma Tarihi:</strong> {{ ders_talebi.olusturulma_tarihi }}</p>
+            <p><i class="fas fa-map-marker-alt"></i> <strong>Konum:</strong> {{ ders_talebi.konum }}</p>
+            <p><i class="fas fa-language"></i> <strong>Dersin Dili:</strong> {{ ders_talebi.dil }}</p>
         </div>
         {% if ders_talebi.kullanici == request.user %}
               <div class="right-actions">
                 <a
                   href="{% url 'TalepDuzenle' ders_talebi.id %}"
                   class="btn btn-warning btn-sm btn-custom btn-warning-custom"
-                  >Talebi Düzenle</a
+                  ><i class="fas fa-edit"></i> Talebi Düzenle</a
                 >
                 <a
                   href="{% url 'TalepSil' ders_talebi.id %}"
                   class="btn btn-danger btn-sm btn-custom btn-danger-custom"
-                  >Talebi Sil</a
+                  ><i class="fas fa-trash"></i> Talebi Sil</a
                 >
                 <a
                   href="{% url 'TalepKabul' ders_talebi.id %}"
                   class="btn btn-success btn-sm btn-custom btn-success-custom"
-                  >Talebi Kapat</a
+                  ><i class="fas fa-check"></i> Talebi Kapat</a
                 >
               </div>
-                 {% else %} {% if ders_talebi.talep_durumu == False %}
+        {% else %} 
+              {% if ders_talebi.talep_durumu == False %}
               <div class="right-actions">
                 {% if request.user.is_authenticated %}
                 <a
                   href="{% url 'IletisimeGec1' ders_talebi.id %}"
                   class="btn btn-success btn-sm btn-custom btn-success-custom"
-                  >Öğrenci İle İletişime Geç</a
+                  ><i class="fas fa-envelope"></i> Öğrenci İle İletişime Geç</a
                 >
                 {% else %}
                 <a
                   href="{% url 'register' %}"
                   class="btn btn-success btn-sm btn-custom btn-success-custom"
-                  >Öğrenci İle İletişime Geç</a
-                >{% endif %}
+                  ><i class="fas fa-envelope"></i> Öğrenci İle İletişime Geç</a
+                >
+                {% endif %}
               </div>
               {% else %}
               <span class="text-muted">Talep Kapandı</span>
-              {% endif %} {% endif %}
-            </div>
+              {% endif %}
+        {% endif %}
     </div>
 </body>
 </html>
-
