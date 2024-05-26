@@ -41,7 +41,7 @@ class DersTalepleri(models.Model):
   ogrenci_seviyesi = models.CharField(max_length=50,choices=seviye)
   olusturulma_tarihi = models.DateTimeField(auto_now_add=True)
   konum = models.ForeignKey(Sehir, on_delete=models.CASCADE, null=True, blank=True, default=None)
-  dil = models.ForeignKey(Dil,on_delete=models.CASCADE,null=True,blank=True,default=None)
+  dil = models.ForeignKey(Dil,on_delete=models.CASCADE,default=None)
   
   def __str__(self):
     return self.isim
@@ -122,7 +122,7 @@ class Sohbet(models.Model):
   user1 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user1_sohbet')
   user2 = models.ForeignKey(User, on_delete=models.CASCADE,related_name='user2_sohbet')
   def __str__(self):
-        return f'{self.user1.username} - {self.user2.username} Sohbet'
+        return f'{self.user1.username} - {self.user2.username}'
   
 class Mesaj(models.Model):
   gönderen = models.ForeignKey(User, on_delete=models.CASCADE, related_name='gönderilen_mesajlar')

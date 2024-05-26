@@ -1,0 +1,84 @@
+{% include 'navbar.html' %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verdiğim Dersler</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="container mt-4">
+      <h2 class="mb-4">Ders Taleplerim</h2>
+
+      <div class="card mb-3">
+        <div class="card-header">
+          <i class="fas fa-chalkboard-teacher"></i> Dersler
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Ders Adı</th>
+                  <th>Maksimum Bütçe</th>
+                  <th>Mininmum Bütçe</th>
+                  <th>Dersin Dili</th>
+                  <th>Dersin Konumu</th>
+                  <th>Dersin Seviyesi</th>
+                  <th>İşlemler</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for ders in ders_taleplerim %}
+                <tr>
+                  <td>{{ forloop.counter }}</td>
+                  <td>{{ders.ders}}</td>
+                  <td>{{ders.max_butce}}</td>
+                  <td>{{ders.min_butce}}</td>
+                  <td>{{ders.dil}}</td>
+                  <td>{{ders.konum}}</td>
+                  <td>{{ders.ogrenci_seviyesi}}</td>
+                  <td>
+                    <div class="btn-group" role="group">
+                    <a href="{% url 'TalepDetay' ders.id %}" class="btn btn-primary btn-sm" >Görüntüle</a>
+                    <a
+                      href="{% url 'TalepDuzenle' ders.id %}"
+                      class="btn btn-warning btn-sm"
+                    >
+                      <i class="fas fa-edit"></i> Düzenle
+                    </a>
+                    <a
+                      href="{% url 'TalepSil' ders.id %}"
+                      class="btn btn-danger btn-sm"
+                    >
+                      <i class="fas fa-trash"></i> Sil
+                    </a>
+                  </div>
+                  </td>
+                </tr>
+                {% endfor %}
+                <!-- Diğer dersler burada listelenecek -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <a href="{% url 'TalepOlustur'  %}" class="btn btn-primary"
+        ><i class="fas fa-plus"></i> Yeni Talep Ekle</a
+      >
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

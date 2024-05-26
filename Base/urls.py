@@ -31,6 +31,8 @@ urlpatterns = [
   path('iletisime_gec1/<str:pk>',views.iletisime_gec1,name='IletisimeGec1'),
   path('hoca_detay/<str:pk>',views.hoca_detay,name='HocaDetay'),
   path('iletisime_gec2/<str:pk>',views.iletisime_gec2,name='IletisimeGec2'),
+  path('ders_taleplerim/<str:pk>',views.ders_taleplerim,name='DersTaleplerim'),
+  path('sohbeti_sil/<str:pk>',views.sohbeti_sil,name='SohbetiSil')
 ]
 
 
