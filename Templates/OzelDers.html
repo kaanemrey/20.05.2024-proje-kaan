@@ -189,7 +189,7 @@
       </div>
 
       <div class="container">
-        {% for ders in verilen_dersler %}
+        {% for ders in page_obj %}
         <div class="card" onclick="window.location='';">
           <a href="{% url 'HocaDetay' ders.id %}">
             {% if ders.egitmen.profile.profil_foto %}
@@ -225,6 +225,8 @@
         {% endfor %}
       </div>
     </div>
+    
+
 
     <script
       src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
