@@ -175,7 +175,6 @@
       <button type="submit" class="search-button">Ara</button>
     </form>
 
-<<<<<<< HEAD
     <div class="main-container">
       <div class="filter-links">
         <h3>Dersler</h3>
@@ -184,49 +183,6 @@
           {% for ders in dersler %}
           <a href="{% url 'OzelDers' %}?q={{ders.ders}}" class="filter-link"
             ><i class="fas fa-book"></i>{{ders.ders}}</a
-=======
-    <div class="filter-links">
-      <button class="nav-arrow left" onclick="scrollLeft()">&#10094;</button>
-      <div class="filter-container">
-        <a href="{% url 'OzelDers' %}" class="filter-link">Hepsi</a>
-        {% for ders in dersler %}
-        <a href="{% url 'OzelDers' %}?q={{ders.ders}}" class="filter-link"
-          >{{ders.ders}}</a
-        >
-        {% endfor %}
-      </div>
-      <button class="nav-arrow right" onclick="scrollRight()">&#10095;</button>
-    </div>
-
-    <div class="container">
-      {% for ders in verilen_dersler %}
-      <div class="card" onclick="window.location='';">
-        <a href="{% url 'HocaDetay' ders.id %}">
-          {% if ders.egitmen.profile.profil_foto %}
-          <img
-            src="{{ MEDIA_URL }}{{ ders.egitmen.profile.profil_foto.url }}"
-            alt="Öğretmen 1"
-          />
-          {% else %}
-          <img
-            src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBhARBxAREBUVFRUTFRASDRIPERUTFRUWFyAWExMYHSggJBolHRMYITEhJSkuMjAuFx83ODMtOigtLisBCgoKDQ0NDg8QDisZFRkrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrK//AABEIAOEA4QMBIgACEQEDEQH/xAAbAAEBAQEBAQEBAAAAAAAAAAAABgQFAgMBB//EADMQAQABAgEJBgUEAwAAAAAAAAABAgQDBREUITFBUVOREiJhcaHRFSMygZITUsHwQrHh/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/xAAWEQEBAQAAAAAAAAAAAAAAAAAAEQH/2gAMAwEAAhEDEQA/AP60AqAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM93d4VrR8yde6mNsg0PyZiNqfuMp3GNPdnsRwp2/edrHVVNU96ZnznOQqsiYnZrfqSiZjY1W+ULnBn6u1HCrX67VhVGMllfYV1GaO7V+2Z/1LWgAAAAAAAAAAAAAAAAAAAAAA+F7c02uBNU652RHGU3i4leNiTViTnmWvK+POLdzEbKdX33/wB8GFUAAAAftNU0VRNM5pjXEwosm3cXWD3vqjb7pxpsMebe6pndsnykFKAigAAAAAAAAAAAAAAAAABG0I2gk66prrmZ3zM9Xl6qpmiqYndMx0eVQAAAAABVW9Xbt6JnfTTPWH0fO3p7FvRE7qaY9H0RQAAAAAAAAAAAAAAAAAAAE9lfB/SvJmNlWuP5/vixKW+tYusDNvjXE+PsnMSirDrmK4zTG2FR5AAAAaLHB0i6pp3Z88+UPhETM6lBkyz0XCz1/VO3wjgDaAigAAAAAAAAAAAAAAAAAAADNeWWHd097VO6qNv38GkBOXGT7nAnXT2o406/TayK55roor+uInziJWkSbRgWVxj/AEUzm/dOqFHTh4dE92mI8qYh7KkY7HJ+Ha6571XHNqjyhsBFAAAAAAAAAAAAAAAAAAAYco38W0dnD11ekefsDTj3GFb058aqI8N8+UOdjZZpifk0Z/Gqc3pDlYmJXiV58SZmeMvCxHRnLFxuinpPufF7nhR+M+7nAOj8XueFH4z7nxe54UfjPu5wDo/F7nhR+M+58XueFH4z7ucA6Pxe54UfjPufGLnhR0n3c4B18LLWv51H3pn+JdG3usG5j5U/bZV0S79pqmmrPTOaeMapIVWjmZNyl+tMUXG3dVx8J8XTRQAAAAAAAAAAAAAHwvbiLa3mrfsiPFNVVVV1TNU55nXMuhlzF7VxFMf4x6z/AMzOauJoAAAAAAAAAAAD9UOTLrSbfv8A1U6p8eEp1syTi/pXscKu712eoYogEUAAAAAAAAAAABNZRmar7Ez8c3TV/DOpqrS3rqmaqKZmd+Z+aFa8unotSJoUuhWvLp6GhWvLp6FImhS6Fa8unoaFa8unoUiaFLoVry6ehoVry6ehSJoUuhWvLp6GhWvLp6FImhS6Fa8unoaFa8unoUiaFLoVry6ehoVry6ehSJp6wp7OLTMbpiekqPQrXl09DQrXl09CkaAEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB//9k="
-          />
-          {% endif %}
-        </a>
-        <!-- Eğitmen bilgileri kutusu -->
-        <div class="instructor-info">
-          <p style="font-weight: bold">Eğitmen Bilgileri</p>
-          <p>
-            Adı Soyadı: {{ ders.egitmen.first_name }} {{ders.egitmen.last_name}}
-          </p>
-          <p>Ders: {{ ders.ders }}</p>
-          <p>Seviye: {{ ders.ders_seviyesi }}</p>
-          <p>Dersin Dili: {{ ders.ders_dili }}</p>
-          <p>Dersin Konumu: {{ ders.sehir }}</p>
-          {% if request.user.is_authenticated %} {% if request.user != ders.egitmen %}
-          <a href="{% url 'IletisimeGec2' ders.id %}" class="contact-btn"
-            >İletişime Geç</a
->>>>>>> a0b8424756f3234b11c6a4d158c45edc810d9eeb
           >
           {% endfor %}
         </div>
