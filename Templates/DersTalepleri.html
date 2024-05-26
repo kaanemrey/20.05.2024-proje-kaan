@@ -321,13 +321,13 @@
 
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <script>
-      // Sayaçları güncellemek için bir fonksiyon
+ 
       function updateTimeStamps() {
         var elements = document.querySelectorAll(".timestamp");
         elements.forEach(function (element, index) {
           var time = new Date(Date.parse(element.dataset.time));
           var now = new Date();
-          var diff = Math.round((now - time) / 60000); // Dakika cinsinden fark
+          var diff = Math.round((now - time) / 60000); 
           var timestampElement = document.getElementById(
             "timestamp" + (index + 1)
           );
@@ -342,7 +342,6 @@
         });
       }
 
-      // Sayfa yüklendiğinde ve her 60 saniyede bir sayaçları güncelleyin
       document.addEventListener("DOMContentLoaded", function () {
         updateTimeStamps();
         setInterval(updateTimeStamps, 60000);

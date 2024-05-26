@@ -427,8 +427,5 @@ def ders_taleplerim(request,pk):
    return render(request,'DersTaleplerim.html',context)
 
 
-def sohbeti_sil(request,pk):
-   sohbet = Sohbet.objects.get(id=pk)
-   sohbet.delete()
-   return redirect('mesaj')
+
 

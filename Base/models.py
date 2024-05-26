@@ -65,12 +65,6 @@ class VerilenDersler(models.Model):
   def __str__(self):
     return f'{self.egitmen} Dersin Dili:{self.ders_dili} Ders:{self.ders} Ücret{self.saatlik_ucret}'
 
-
-class Bildirim(models.Model):
-  alici = models.ForeignKey(User, on_delete=CASCADE)
-  icerik = models.TextField(max_length=200)
-  tarih = models.DateTimeField(auto_now_add=True)
-
   def __str__(self):
     return f"{self.icerik[0:50]}--{self.alici}"
 

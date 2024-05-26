@@ -110,9 +110,6 @@ class ProfileEditForm(forms.ModelForm):
             'bio': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
         }
 
-
-
-
 class DersEkleForm(forms.ModelForm):
     class Meta:
         model = VerilenDersler
