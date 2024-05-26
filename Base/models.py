@@ -25,11 +25,11 @@ class Ders(models.Model):
 
 class DersTalepleri(models.Model):
   seviye = [
-    ('ilkokul', 'İlkokul'),
-    ('ortaokul', 'Ortaokul'),
-    ('lise', 'Lise'),
-    ('universite', 'Üniversite'),
-    ('yukseklisans','Yüksek Lisans'),
+    ('İlkokul', 'İlkokul'),
+    ('Ortaokul', 'Ortaokul'),
+    ('Lise', 'Lise'),
+    ('Üniversite', 'Üniversite'),
+    ('Yüksek Lisans','Yüksek Lisans'),
   ]
   kullanici = models.ForeignKey(User, on_delete=models.CASCADE)
   isim = models.CharField(max_length=50)
@@ -89,7 +89,6 @@ class Profile(models.Model):
   bio = models.TextField(max_length=200, null=True,blank=True, default=None)
   profil_foto = models.ImageField(upload_to='avatarlar',null=True,blank=True,)
   dogum_tarihi = models.DateField(null=True, blank=True, default=None)
-  tel_no = models.CharField(max_length=20, null=True, blank=True, default=None)
   cinsiyet = models.CharField(max_length=50,choices=secenek1)
   
   def __str__(self):

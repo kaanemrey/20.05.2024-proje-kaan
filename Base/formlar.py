@@ -99,23 +99,17 @@ class UserEditForm(forms.ModelForm):
 class ProfileEditForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['tel_no', 'dogum_tarihi', 'bio']
+        fields = [ 'dogum_tarihi', 'bio']
         labels = {
             'tel_no': 'Telefon Numarası',
             'dogum_tarihi': 'Doğum Tarihi',
             'bio': 'Hakkımda',
         }
         widgets = {
-            'tel_no': forms.TextInput(attrs={'class': 'form-control', 'type': 'number'}),
             'dogum_tarihi': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'bio': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
         }
 
-    def clean_tel_no(self):
-        tel_no = self.cleaned_data['tel_no']
-        if not tel_no.isdigit():
-            raise forms.ValidationError("Telefon numarası sadece sayılardan oluşmalıdır.")
-        return tel_no
 
 
 
