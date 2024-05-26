@@ -234,8 +234,7 @@
           <p>Seviye: {{ ders.ders_seviyesi }}</p>
           <p>Dersin Dili: {{ ders.ders_dili }}</p>
           <p>Dersin Konumu: {{ ders.sehir }}</p>
-          {% if request.user.is_authenticated %} {% if request.user !=
-          ders.egitmen %}
+          {% if request.user.is_authenticated %} {% if request.user != ders.egitmen %}
           <a href="{% url 'IletisimeGec2' ders.id %}" class="contact-btn"
             >İletişime Geç</a
           >
