@@ -32,7 +32,7 @@ class DersTalepleri(models.Model):
     ('Yüksek Lisans','Yüksek Lisans'),
   ]
   kullanici = models.ForeignKey(User, on_delete=models.CASCADE)
-  isim = models.CharField(max_length=50)
+  baslik = models.CharField(max_length=50)
   ders = models.ForeignKey(Ders, on_delete=models.CASCADE)
   talep_notu= models.TextField(max_length=200,null=True,blank=True)
   talep_durumu = models.BooleanField(default=False)

@@ -105,7 +105,7 @@
         <h1>Ders Talebinin Detayları</h1>
 
         <div class="request-details">
-            <p><i class="fas fa-book"></i> <strong>Başlık:</strong> {{ ders_talebi.isim }}</p>
+            <p><i class="fas fa-book"></i> <strong>Başlık:</strong> {{ ders_talebi.baslik }}</p>
             <p><i class="fas fa-user"></i> <strong>Kullanıcı:</strong> {{ ders_talebi.kullanici }}</p>
             <p><i class="fas fa-chalkboard"></i> <strong>Ders:</strong> {{ ders_talebi.ders }}</p>
             <p><i class="fas fa-sticky-note"></i> <strong>Talep Notu:</strong> {{ ders_talebi.talep_notu }}</p>
@@ -113,7 +113,8 @@
                 <strong>Talep Durumu:</strong> {% if ders_talebi.talep_durumu %}
                 Eğitmen Bulundu {% else %}Talep Açık{% endif %}
             </p>
-            <p><i class="fas fa-coins"></i> <strong>Bütçe Aralığı:</strong> {{ ders_talebi.min_butce }} TL - {{ ders_talebi.max_butce }} TL</p>
+            <p><i class="fas fa-coins"></i> <strong>Bütçe Aralığı:</strong> {{ ders_talebi.min_butce }} TL - 
+                {{ ders_talebi.max_butce }} TL</p>
             <p><i class="fas fa-level-up-alt"></i> <strong>Öğrenci Seviyesi:</strong> {{ ders_talebi.ogrenci_seviyesi }}</p>
             <p><i class="fas fa-calendar-alt"></i> <strong>Oluşturulma Tarihi:</strong> {{ ders_talebi.olusturulma_tarihi }}</p>
             <p><i class="fas fa-map-marker-alt"></i> <strong>Konum:</strong> {{ ders_talebi.konum }}</p>
