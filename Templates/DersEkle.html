@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ders Ekle</title>
-    <!-- Bootstrap CSS -->
+  
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
@@ -53,31 +53,30 @@
       <form method="POST">
         {% csrf_token %}
 
-        <!-- Ders Adı -->
+      
         <div class="form-group">
           <label for="ders">Ders:</label>
           {{ dersform.ders }}
         </div>
 
-        <!-- Saatlik Ücret -->
+     
         <div class="form-group">
           <label for="saatlik_ucret">Saatlik Ücret:</label>
           {{ dersform.saatlik_ucret }}
         </div>
 
-        <!-- Ders Dili -->
+ 
         <div class="form-group">
           <label for="ders_dili">Ders Dili:</label>
           {{ dersform.ders_dili }}
         </div>
 
-        <!-- Konum -->
         <div class="form-group">
           <label for="sehir">Konum:</label>
           {{ dersform.sehir }}
         </div>
 
-        <!-- Dersin Seviyesi -->
+      
         <div class="form-group">
           <label for="ders_seviyesi">Dersin Seviyesi:</label>
           {{ dersform.ders_seviyesi }}
@@ -87,7 +86,6 @@
       </form>
     </div>
 
-    <!-- Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

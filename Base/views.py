@@ -8,7 +8,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.db.models import Q
 from .formlar import RegisterForm , DersTalepleriForm, ProfileForm, ProfileEditForm, UserEditForm, DersEkleForm, AvatarForm, MessageForm
 from .models import DersTalepleri, EgitmenProfile, OgrenciProfile, Profile, VerilenDersler, Mesaj, Sohbet, Ders
-
+from django.core.paginator import Paginator
 
 def login_page(request):
   sayfa = 'login'
@@ -115,7 +115,10 @@ def derstalepleri(request):
       Q(olusturulma_tarihi__icontains=q) |
       Q(dil__dil__icontains=q)
    )
-   context = {'derstalepleri': derstalepleri, 'dersler':dersler}
+   paginator = Paginator(derstalepleri,5)  
+   page_number = request.GET.get('page')  
+   page_obj = paginator.get_page(page_number)
+   context = {'derstalepleri': derstalepleri, 'dersler':dersler,'page_obj':page_obj}
    return render(request, 'DersTalepleri.html',context)
 
 
@@ -341,11 +344,13 @@ def sohbet_detay(request,pk):
    mesajlar = Mesaj.objects.filter(sohbet=secili_sohbet)
    if request.method == 'POST':
       mesajform = MessageForm(request.POST)
-      yeni_mesaj = mesajform.save(commit=False)
-      yeni_mesaj.gönderen = user
-      yeni_mesaj.sohbet = secili_sohbet
-      yeni_mesaj.save()
-      mesajlar = Mesaj.objects.filter(sohbet=secili_sohbet)
+      if mesajform.is_valid():
+         yeni_mesaj = mesajform.save(commit=False)
+         if yeni_mesaj.içerik.strip():
+             yeni_mesaj.gönderen = user
+             yeni_mesaj.sohbet = secili_sohbet
+             yeni_mesaj.save()
+             mesajlar = Mesaj.objects.filter(sohbet=secili_sohbet)
    else:
       mesajform = MessageForm()
    context = {'sohbetler' : sohbetler, 'secili_sohbet' : secili_sohbet, 'mesajlar' : mesajlar, 'mesajform' : mesajform}
@@ -359,8 +364,8 @@ def iletisime_gec1(request, pk):
     sohbetler = Sohbet.objects.filter(Q(user1=user) | Q(user2=user))
     try:
         secili_sohbet = Sohbet.objects.get(
-        Q(user1=user, user2=alici) | Q(user1=alici, user2=user)
-    )
+            Q(user1=user, user2=alici) | Q(user1=alici, user2=user)
+        )
     except Sohbet.DoesNotExist:
         secili_sohbet = Sohbet.objects.create(user1=user, user2=alici)
     mesajlar = Mesaj.objects.filter(sohbet=secili_sohbet)
@@ -368,10 +373,11 @@ def iletisime_gec1(request, pk):
         mesajform = MessageForm(request.POST)
         if mesajform.is_valid():
             yeni_mesaj = mesajform.save(commit=False)
-            yeni_mesaj.gönderen = user
-            yeni_mesaj.sohbet = secili_sohbet
-            yeni_mesaj.save()
-            return redirect('IletisimeGec',pk=ders_talebi.id)
+            if yeni_mesaj.icerik.strip(): 
+                yeni_mesaj.gönderen = user
+                yeni_mesaj.sohbet = secili_sohbet
+                yeni_mesaj.save()
+                return redirect('IletisimeGec', pk=ders_talebi.id)
     else:
         mesajform = MessageForm()
     context = {
@@ -399,9 +405,10 @@ def iletisime_gec2(request, pk):
         mesajform = MessageForm(request.POST)
         if mesajform.is_valid():
             yeni_mesaj = mesajform.save(commit=False)
-            yeni_mesaj.gönderen = user
-            yeni_mesaj.sohbet = secili_sohbet
-            yeni_mesaj.save()
+            if yeni_mesaj.içerik.strip(): 
+                yeni_mesaj.gönderen = user
+                yeni_mesaj.sohbet = secili_sohbet
+                yeni_mesaj.save()
             return redirect('IletisimeGec2',pk=ders.id)
     else:
         mesajform = MessageForm()
@@ -420,8 +427,5 @@ def ders_taleplerim(request,pk):
    return render(request,'DersTaleplerim.html',context)
 
 
-def sohbeti_sil(request,pk):
-   sohbet = Sohbet.objects.get(id=pk)
-   sohbet.delete()
-   return redirect('mesaj')
+
 

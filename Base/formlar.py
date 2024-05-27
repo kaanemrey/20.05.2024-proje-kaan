@@ -99,19 +99,14 @@ class UserEditForm(forms.ModelForm):
 class ProfileEditForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = [ 'dogum_tarihi', 'bio']
+        fields = ['bio']
         labels = {
             'tel_no': 'Telefon Numarası',
-            'dogum_tarihi': 'Doğum Tarihi',
             'bio': 'Hakkımda',
         }
         widgets = {
-            'dogum_tarihi': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'bio': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
         }
-
-
-
 
 class DersEkleForm(forms.ModelForm):
     class Meta:

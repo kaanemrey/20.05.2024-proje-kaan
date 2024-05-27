@@ -50,7 +50,7 @@
         border-radius: 15px;
         margin-bottom: 10px;
       }
-      /* Gönder butonunun boyutunu küçültmek için ekledik */
+     
       .btn-send {
         padding: 0.25rem 0.5rem;
         font-size: 0.75rem;
@@ -58,18 +58,18 @@
         width: 4rem;
         height: 2rem;
       }
-      /* Yeni stiller */
+      
       .chat-form {
         display: flex;
-        align-items: center; /* Elemanları dikeyde hizalamak için */
+        align-items: center;
       }
       .form-group {
-        flex-grow: 1; /* Elemanın genişlemesini sağlamak için */
-        margin-right: 10px; /* Butondan önceki boşluğu artırmak için */
+        flex-grow: 1; 
+        margin-right: 10px; 
       }
       .btn-send {
-        flex-shrink: 0; /* Butonun boyutunun sabit kalmasını sağlamak için */
-        height: 100%; /* Butonun yüksekliğini ayarlamak için */
+        flex-shrink: 0; 
+        height: 100%; 
       }
     </style>
   </head>
@@ -88,9 +88,8 @@
                 <h5 class="mb-1">
                   <i class="fas fa-user mr-2"></i>{{ sohbet }}
                 </h5>
-                <!-- İnsan ikonunu ekledik -->
+   
               </div>
-              <p class="mb-1">Son mesaj önizlemesi buraya gelecek...</p>
             </a>
             {% endfor %}
           </div>
@@ -111,7 +110,7 @@
                       <h5 class="mt-0">{{ mesaj.gönderen }}</h5>
                       {{ mesaj.içerik }}
                       <small class="text-muted">{{ mesaj.tarih }}</small>
-                      <!-- Mesajın atılma tarihi -->
+              
                     </div>
                   </div>
                 </div>
@@ -123,11 +122,11 @@
                   <div class="form-group flex-grow-1">
                     {{ mesajform.içerik }}
                   </div>
-                  <!-- Gönder butonunun classını değiştirdik -->
+                 
                   <button type="submit" class="btn btn-primary btn-send">
                     <i class="fas fa-paper-plane"></i> Gönder
                   </button>
-                  <!-- Buton eklendi -->
+            
                 </form>
               </div>
             </div>
