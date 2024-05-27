@@ -109,7 +109,7 @@ def derstalepleri(request):
       Q(kullanici__first_name__icontains=q) |
       Q(kullanici__profile__cinsiyet__icontains=q) |
       Q(konum__sehir__icontains=q) |
-      Q(isim__icontains=q) |
+      Q(baslik__icontains=q) |
       Q(max_butce__icontains=q) |
       Q(min_butce__icontains=q) |
       Q(olusturulma_tarihi__icontains=q) |
