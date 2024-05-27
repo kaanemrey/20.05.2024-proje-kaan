@@ -346,7 +346,7 @@ def sohbet_detay(request,pk):
       mesajform = MessageForm(request.POST)
       if mesajform.is_valid():
          yeni_mesaj = mesajform.save(commit=False)
-         if yeni_mesaj.icerik.strip():
+         if yeni_mesaj.içerik.strip():
              yeni_mesaj.gönderen = user
              yeni_mesaj.sohbet = secili_sohbet
              yeni_mesaj.save()
@@ -405,7 +405,7 @@ def iletisime_gec2(request, pk):
         mesajform = MessageForm(request.POST)
         if mesajform.is_valid():
             yeni_mesaj = mesajform.save(commit=False)
-            if yeni_mesaj.icerik.strip(): 
+            if yeni_mesaj.içerik.strip(): 
                 yeni_mesaj.gönderen = user
                 yeni_mesaj.sohbet = secili_sohbet
                 yeni_mesaj.save()

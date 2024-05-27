@@ -4,6 +4,3 @@ from django.utils.translation import gettext_lazy as _
 class BaseConfig(AppConfig):
     name = 'Base'
     verbose_name = _('Base')
-
-    def ready(self):
-        from . import signals

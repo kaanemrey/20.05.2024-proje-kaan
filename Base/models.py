@@ -65,8 +65,7 @@ class VerilenDersler(models.Model):
   def __str__(self):
     return f'{self.egitmen} Dersin Dili:{self.ders_dili} Ders:{self.ders} Ücret{self.saatlik_ucret}'
 
-  def __str__(self):
-    return f"{self.icerik[0:50]}--{self.alici}"
+
 
 
 class Profile(models.Model):
@@ -82,7 +81,6 @@ class Profile(models.Model):
   kullanici_tipi = models.CharField(max_length=50,null=False, choices=secenek2)
   bio = models.TextField(max_length=200, null=True,blank=True, default=None)
   profil_foto = models.ImageField(upload_to='avatarlar',null=True,blank=True,)
-  dogum_tarihi = models.DateField(null=True, blank=True, default=None)
   cinsiyet = models.CharField(max_length=50,choices=secenek1)
   
   def __str__(self):
